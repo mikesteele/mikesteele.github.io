@@ -1,4 +1,4 @@
-<html>
+<!doctype html>
 <!--
  ________  ________  ________  ___       ___       
 |\   ____\|\   __  \|\   __  \|\  \     |\  \      
@@ -11,9 +11,515 @@
                                               \|__|
 -->
   <head>
-    <title></title>
+    <!-- TODO: meta description, canonical, favicon -->
+    <title>Mike Steele</title>
+    <meta name="description" content="I'm Mike Steele, a software engineer based in Boston, MA.">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
+    <style>
+    html, body {
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      margin: 0;
+      overflow: hidden;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 14px;
+      color: white;
+      border: 1px solid white;
+      box-sizing: border-box;
+    }
+
+    /* Animations */
+
+    @keyframes console-blink {
+      0% {
+        background: black;
+        border: 1px solid black;
+      }
+      50%, 100% {
+        background: white;
+        border: 1px solid white;
+      }
+    }
+
+    /* Layout */
+
+    .container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .container.full {
+      width: 100%;
+      height: 100%;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 5px;
+      cursor: pointer;
+      border: 1px solid white;
+      user-select: none;
+      text-decoration: none;
+      color: white;
+    }
+
+    .btn:active {
+      color: black;
+      background: white;
+    }
+
+    .btn.two-borders {
+      border-top: 0px solid white;
+      border-left: 1px solid white;
+      border-right: 1px solid white;
+      border-bottom: 0px solid white;
+    }
+
+    .btn.left-border {
+      border-top: 0px solid white;
+      border-left: 1px solid white;
+      border-right: 0px solid white;
+      border-bottom: 0px solid white;
+    }
+
+    .btn.no-borders {
+      border: none;
+    }
+
+    .btn-group {
+      text-align: center;
+    }
+
+    .float-right {
+      float: right;
+    }
+
+    .divider {
+      height: 1px;
+      width: 100%;
+      margin: 10px 0;
+      background: black;
+      border-top: 1px dashed white;
+    }
+
+    .windows-container, .files-container {
+      position: absolute;
+    }
+
+    .files-container {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Computer */
+
+    .computer {
+      overflow: hidden;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* System */
+
+    .system-window-toolbar {
+      height: 25px;
+      color: white;
+      background: black;
+      border-bottom: 1px solid white;
+    }
+
+    .system-icon {
+      cursor: pointer;
+      margin-left: 10px;
+    }
+
+    .system-icon:active {
+      color: black;
+    }
+
+    .system-time {
+      margin-left: auto;
+      margin-right: 10px;
+    }
+
+    /* Desktop */
+    
+    .desktop {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      height: 100%;
+      padding: 10px;
+      background: url('https://orig00.deviantart.net/97d6/f/2014/257/b/5/animated_pixel_stars___box_background_by_driftwoodbones-d7z0h0p.gif');
+      user-select: none;
+    }
+
+    /* Windows */
+
+    .window {
+      display: inline-block;
+      margin-bottom: 15px;
+      width: 300px;
+      position: relative;
+      z-index: 2;
+      cursor: move;
+      background: black;
+      border: 1px solid white;
+    }
+
+    .window:active {
+      box-shadow:  5px 5px 0px 0px rgba(0, 0, 0, 1), 6px 6px 0px 0px rgba(255, 255, 255, 1);
+    }
+
+    .window.resume {
+      width: 500px;
+    }
+
+    .window-toolbar {
+      height: 25px;
+      font-size: 12px;
+      user-select: none;
+      color: white;
+      border-bottom: 1px solid white;
+    }
+
+    .window-toolbar-title {
+      align-self: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .window-toolbar-item {
+      color: white;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .window-toolbar-item:active {
+      color: black;
+    }
+
+    .window-contents {
+      padding: 15px;
+      font-size: 14px;
+      user-select: none;
+      max-height: 200px;
+      overflow: scroll;
+    }
+
+    .spacer {
+      margin-bottom: 20px;
+    }
+
+    .less-label {
+      background: white;
+      color: black;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+    }
+
+    .less-spacer {
+      display: inline-block;
+      width: 10px;
+      height: 18px;
+      border: 1px solid white;
+      background: black;
+      vertical-align: text-bottom;
+      animation: none;
+    }
+
+    .window.active .less-spacer {
+      animation: 1s console-blink infinite;
+      animation-timing-function: steps(1,end);
+
+    }
+
+    .window-contents::-webkit-scrollbar {
+      width: 10px;
+      height: 8px;
+      background-color: black;
+    }
+
+    .window-contents::-webkit-scrollbar-thumb  {
+      background-color: black;
+      border-top: 1px solid white;
+      border-left: 1px solid white;
+      border-bottom: 1px solid white;
+      border-right: none;
+    }
+
+    .window-contents::-webkit-scrollbar-corner {
+      background-color: black;
+    }
+
+    /* Files */
+
+    .file {
+      position: relative;
+      margin-bottom: 20px;
+      cursor: pointer;
+      display: inline-flex;
+      z-index: 1;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .file:active { 
+      cursor: move;
+    }
+
+    .file-name {
+      display: inline-block;
+    }
+
+    .file:active .file-name {
+      background: white;
+      color: black;
+    }
+
+    .file-icon {
+      display: block;
+      position: relative;
+      width: 50px;
+      height: 75px;
+      background: black;
+      outline: 1px solid white;
+    }
+
+    .file-corner-inner {
+      width: 20px;
+      height: 20px;
+      background: white;
+      float: right;
+    }
+
+    .file-corner-outer {
+      position: absolute;
+      right: -1px;
+      top: -1px;
+      width: 0px;
+      height: 0px;
+      border-left: 10px solid transparent;
+      border-top: 10px solid black;
+      border-right: 10px solid black;
+      border-bottom: 10px solid transparent;
+    }
+    </style>
   </head>
   <body>
-  Coming soon... &#x1F440;
+      <div class="computer">
+        <div class="system-window-toolbar">
+          <div class="container">
+            <span class="system-icon">
+               &#9790;
+            </span>
+            <span class="system-time">
+              12:25 PM
+            </span>
+          </div>
+        </div>
+        <div class="desktop">
+          <div class="windows-container">
+          <div class="window" draggable="true">
+            <div class="window-toolbar"></div>
+            <div class="window-contents">
+              Are you sure you want to close this window?
+              <br/><br/>
+              <div class="btn-group">
+                <a class="btn">
+                  Yes
+                </a>
+                <a class="btn">
+                  No
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="window active" draggable="true">
+            <div class="window-toolbar">
+              <div class="full container">
+                <div class="window-toolbar-title">
+                  less hello.txt
+                </div>
+                <div class="window-toolbar-item">
+                  <a class="btn no-borders">x</a>
+                </div>
+              </div>
+            </div>
+            <div class="window-contents">
+              I'm Mike Steele.
+              <br/> I'm currently a software engineer at athenahealth.
+              <br/> Contact me at `hi@mike.cool`</u>.
+              <br/> :-)
+              <div class="spacer"></div>
+            </div>
+            <div class="less-label">
+            hello.txt (END)
+            <div class="less-spacer"></div>
+            </div>
+          </div>
+          <div class="window" draggable="true">
+            <div class="window-toolbar">
+              <div class="full container">
+                <div class="window-toolbar-title">
+                  personal-projects.pdf
+                </div>
+                <div class="window-toolbar-item">
+                  <a class="btn no-borders">x</a>
+                </div>
+              </div>
+            </div>
+            <div class="window-contents">
+              sparkly
+              <br/>TBD
+              <br/>
+              <a class="btn">
+                Demo
+              </a>
+              <div class="divider"></div>
+              <br/> mbta-cli
+              <br/> TBD
+              <br/>
+              <a class="btn">
+                View on GitHub
+              </a>
+              <a class="btn">
+                Demo
+              </a>
+              <br/>
+              <br/> dual-captions
+              <br/> TBD
+              <br/>
+              <a class="btn">
+                View on GitHub
+              </a>
+              <a class="btn">
+                Demo
+              </a>
+            </div>
+          </div>
+          <div class="window resume" draggable="true">
+            <div class="window-toolbar">
+              <div class="full container">
+                <div class="window-toolbar-title">
+                  resume.pdf
+                </div>
+                <div class="window-toolbar-item">
+                  <a class="btn no-borders">x</a>
+                </div>
+              </div>
+            </div>
+            <div class="window-contents">
+              <div class="btn float-right">Download Full Version</div>
+              Mike Steele
+              <br/>Web Developer
+              <br/>hi@mike.cool
+              <br/><br/>
+              <div class="divider"></div>
+              <br/><u>Work</u>
+              <br/>Member of Technical Staff @ athenahealth
+              <br/>Apr 2017 - Present
+              <br/>-
+              <br/>-
+              <br/>-
+              <br/>
+              <br/>Software Engineer @ Wanderu
+              <br/>Dec 2015 - Mar 2017
+              <br/>
+              <br/>Grader @ UMass Amherst
+              <br/>
+              <br/>
+              <br/>
+              <br/><u>Education</u>
+              <br/>BA in Computer Science
+              <br/>Graduated Dec. 2015
+            </div>
+          </div>
+          </div>
+          <div class="files-container">
+            <div class="file" draggable="true">
+              <div class="file-icon">
+                <div class="file-corner-inner">
+                  <div class="file-corner-outer">
+                  </div>
+                </div>
+              </div>
+              <div class="file-name">
+                projects.pdf
+              </div>
+            </div>
+            <div class="file" draggable="true">
+              <div class="file-icon">
+                <div class="file-corner-inner">
+                  <div class="file-corner-outer">
+                  </div>
+                </div>
+              </div>
+              <div class="file-name">
+                resume.txt
+              </div>
+            </div>
+          </div>
+        </div>
+    <img id="blank" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" style="display:none"/>
+    <script type="text/javascript">
+    window.windowZIndex = 100;
+
+    var draggableElements = document.querySelectorAll("[draggable=true]");
+
+    Array.from(draggableElements).forEach(el => {
+      el.ondragstart = (e) => {
+        e.dataTransfer.setDragImage(document.getElementById("blank"), 0, 0);
+        el.dataset.screenx = e.screenX;
+        el.dataset.screeny = e.screenY;
+        window.windowZIndex++;
+        el.style.zIndex = window.windowZIndex;
+        Array.from(document.querySelectorAll(".active")).forEach(_el => {
+          _el.classList.remove("active");
+        });
+        el.classList.add("active");
+      };
+      el.ondrag = (e) => {
+        if (el.dataset.screenx && el.dataset.screeny && e.screenX && e.screenY) {
+          var xDifference = e.screenX - el.dataset.screenx;
+          var yDifference = e.screenY - el.dataset.screeny;
+          el.dataset.screenx = e.screenX;
+          el.dataset.screeny = e.screenY;
+          if (el.dataset.right) {
+            el.dataset.right = Number(el.dataset.right) - xDifference;
+          } else {
+            el.dataset.right = xDifference;
+          }
+          el.style.right = `${el.dataset.right}px`;
+          if (el.dataset.top) {
+            el.dataset.top = Number(el.dataset.top) + yDifference;
+          } else {
+            el.dataset.top = yDifference;
+          }
+          el.style.top = `${el.dataset.top}px`;
+        }
+      };
+      el.ondragend = () => {
+        delete el.dataset.screenx;
+        delete el.dataset.screeny;
+      };
+      el.onclick = () => {
+        window.windowZIndex++;
+        el.style.zIndex = window.windowZIndex;
+        Array.from(document.querySelectorAll(".active")).forEach(_el => {
+          _el.classList.remove("active");
+        });
+        el.classList.add("active");
+      }
+    });
+    </script>
   </body>
 </html>
