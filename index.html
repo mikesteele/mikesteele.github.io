@@ -13,7 +13,6 @@
   <head>
     <!-- TODO: meta description, canonical, favicon -->
     <title>Mike Steele</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="I'm Mike Steele, a software engineer based in Boston, MA.">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
@@ -44,7 +43,20 @@
       }
     }
 
+    @keyframes window-open {
+      0% {
+        margin-top: 20px;
+      }
+      100% {
+        margin-top: 0px;
+      }
+    }
+
     /* Layout */
+
+    .hidden {
+      display: none !important;
+    }
 
     .container {
       display: flex;
@@ -164,11 +176,15 @@
       display: inline-block;
       margin-bottom: 15px;
       width: 300px;
-      position: relative;
+      position: absolute;
       z-index: 2;
       cursor: move;
       background: black;
       border: 1px solid white;
+    }
+
+    .window.animated {
+      animation: 0.2s window-open ease;
     }
 
     .window:active {
@@ -193,7 +209,7 @@
       margin-right: auto;
     }
 
-    .window-toolbar-item {
+    .window-close-btn {
       color: white;
       cursor: pointer;
       display: flex;
@@ -202,7 +218,7 @@
       text-align: center;
     }
 
-    .window-toolbar-item:active {
+    .window-close-btn:active {
       color: black;
     }
 
@@ -350,7 +366,7 @@
                 <div class="window-toolbar-title">
                   less hello.txt
                 </div>
-                <div class="window-toolbar-item">
+                <div class="window-close-btn">
                   <a class="btn no-borders">x</a>
                 </div>
               </div>
@@ -367,13 +383,13 @@
             <div class="less-spacer"></div>
             </div>
           </div>
-          <div class="window" draggable="true">
+          <div id="projects-window" class="window" draggable="true">
             <div class="window-toolbar">
               <div class="full container">
                 <div class="window-toolbar-title">
                   personal-projects.pdf
                 </div>
-                <div class="window-toolbar-item">
+                <div class="window-close-btn">
                   <a class="btn no-borders">x</a>
                 </div>
               </div>
@@ -407,13 +423,13 @@
               </a>
             </div>
           </div>
-          <div class="window resume" draggable="true">
+          <div id="resume-window" class="window resume" draggable="true">
             <div class="window-toolbar">
               <div class="full container">
                 <div class="window-toolbar-title">
                   resume.pdf
                 </div>
-                <div class="window-toolbar-item">
+                <div class="window-close-btn">
                   <a class="btn no-borders">x</a>
                 </div>
               </div>
@@ -422,7 +438,6 @@
               <div class="btn float-right">Download Full Version</div>
               Mike Steele
               <br/>Web Developer
-              <br/>hi@mike.cool
               <br/><br/>
               <div class="divider"></div>
               <br/><u>Work</u>
@@ -446,7 +461,7 @@
           </div>
           </div>
           <div class="files-container">
-            <div class="file" draggable="true">
+            <div id="projects-file" class="file" draggable="true">
               <div class="file-icon">
                 <div class="file-corner-inner">
                   <div class="file-corner-outer">
@@ -457,7 +472,7 @@
                 projects.pdf
               </div>
             </div>
-            <div class="file" draggable="true">
+            <div id="resume-file" class="file" draggable="true">
               <div class="file-icon">
                 <div class="file-corner-inner">
                   <div class="file-corner-outer">
@@ -494,12 +509,12 @@
           var yDifference = e.screenY - el.dataset.screeny;
           el.dataset.screenx = e.screenX;
           el.dataset.screeny = e.screenY;
-          if (el.dataset.right) {
-            el.dataset.right = Number(el.dataset.right) - xDifference;
+          if (el.dataset.left) {
+            el.dataset.left = Number(el.dataset.left) + xDifference;
           } else {
-            el.dataset.right = xDifference;
+            el.dataset.left = xDifference;
           }
-          el.style.right = `${el.dataset.right}px`;
+          el.style.left = `${el.dataset.left}px`;
           if (el.dataset.top) {
             el.dataset.top = Number(el.dataset.top) + yDifference;
           } else {
@@ -513,14 +528,51 @@
         delete el.dataset.screeny;
       };
       el.onclick = () => {
-        window.windowZIndex++;
-        el.style.zIndex = window.windowZIndex;
-        Array.from(document.querySelectorAll(".active")).forEach(_el => {
-          _el.classList.remove("active");
-        });
-        el.classList.add("active");
+        makeWindowActive(el);
       }
     });
+
+    var makeWindowActive = (windowElement) => {
+      Array.from(document.querySelectorAll(".active")).forEach(el => {
+        el.classList.remove("active");
+      });
+      windowElement.classList.add("active");
+      
+      window.windowZIndex++;
+      windowElement.style.zIndex = window.windowZIndex;
+    }
+
+    var projectsFile = document.getElementById("projects-file");
+    var resumeFile = document.getElementById("resume-file");
+
+    var projectsWindow = document.getElementById("projects-window");
+    var resumeWindow = document.getElementById("resume-window");
+
+    var projectsWindowCloseBtn = document.querySelector("#projects-window .window-close-btn");
+    var resumeWindowCloseBtn = document.querySelector("#resume-window .window-close-btn");
+
+    projectsFile.onclick = (e) => {
+      if (projectsWindow.classList.contains("hidden")) {
+        projectsWindow.classList.remove("hidden");
+        projectsWindow.classList.add("animated");
+        makeWindowActive(projectsWindow);
+      }
+    }
+    resumeFile.onclick = (e) => {
+      if (resumeWindow.classList.contains("hidden")) {
+        resumeWindow.classList.remove("hidden");
+        resumeWindow.classList.add("animated");
+        makeWindowActive(resumeWindow);
+      }
+    }
+    projectsWindowCloseBtn.onclick = (e) => {
+      projectsWindow.classList.add("hidden");
+      projectsWindow.classList.remove("animated");
+    }
+    resumeWindowCloseBtn.onclick = (e) => {
+      resumeWindow.classList.add("hidden");
+      resumeWindow.classList.remove("animated");
+    }
     </script>
   </body>
 </html>
