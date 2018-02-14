@@ -1,611 +1,379 @@
 <!doctype html>
-<!--
- ________  ________  ________  ___       ___       
-|\   ____\|\   __  \|\   __  \|\  \     |\  \      
-\ \  \___|\ \  \|\  \ \  \|\  \ \  \    \ \  \     
- \ \  \    \ \  \\\  \ \  \\\  \ \  \    \ \  \    
-  \ \  \____\ \  \\\  \ \  \\\  \ \  \____\ \__\   
-   \ \_______\ \_______\ \_______\ \_______\|__|   
-    \|_______|\|_______|\|_______|\|_______|   ___ 
-                                              |\__\
-                                              \|__|
--->
   <head>
     <title>Mike Steele</title>
     <meta name="description" content="I'm Mike Steele, a software engineer based in Boston, MA.">
-    <link rel="shortcut icon" href="https://raw.githubusercontent.com/mikesteele/mike.cool/master/favicon.ico" type="image/x-icon">
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,900" rel="stylesheet">
     <style>
     html, body {
-      width: 100%;
+      background: white;
+      color: rgba(0,0,0,0.7);
+      font-family: 'Source Sans Pro', sans-serif;
+      font-size: 24px;
+      font-weight: 400;
       height: 100%;
-      padding: 0;
       margin: 0;
       overflow: hidden;
-      font-family: "Roboto Mono", monospace;
-      font-size: 14px;
-      color: white;
-      border: 1px solid white;
-      box-sizing: border-box;
-    }
-
-    /* Animations */
-
-    @keyframes console-blink {
-      0% {
-        background: black;
-        border: 1px solid black;
-      }
-      50%, 100% {
-        background: white;
-        border: 1px solid white;
-      }
-    }
-
-    @keyframes window-open {
-      0% {
-        margin-top: 20px;
-      }
-      100% {
-        margin-top: 0px;
-      }
-    }
-
-    /* Layout */
-
-    .hidden {
-      display: none !important;
-    }
-
-    .container {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .container.full {
       width: 100%;
-      height: 100%;
     }
 
-    .btn {
-      display: inline-block;
-      padding: 5px;
-      cursor: pointer;
-      border: 1px solid white;
-      user-select: none;
-      text-decoration: none;
-      color: white;
+    @media (max-width: 800px) {
+      html, body {
+        overflow: auto;
+      }
     }
 
-    .btn:active {
-      color: black;
-      background: white;
-    }
-
-    .btn.two-borders {
-      border-top: 0px solid white;
-      border-left: 1px solid white;
-      border-right: 1px solid white;
-      border-bottom: 0px solid white;
-    }
-
-    .btn.left-border {
-      border-top: 0px solid white;
-      border-left: 1px solid white;
-      border-right: 0px solid white;
-      border-bottom: 0px solid white;
-    }
-
-    .btn.no-borders {
-      border: none;
-    }
-
-    .btn-group {
-      text-align: center;
-      margin-top: 10px;
-    }
-
-    .float-right {
-      float: right;
-    }
-
-    .windows-container, .files-container {
-      position: absolute;
-    }
-
-    .files-container {
+    .all {
       display: flex;
-      flex-direction: column;
-    }
-
-    /* Computer */
-
-    .computer {
-      overflow: hidden;
-      width: 100%;
       height: 100%;
-    }
-
-    /* System */
-
-    .system-window-toolbar {
-      height: 25px;
-      color: white;
-      background: black;
-      border-bottom: 1px solid white;
-    }
-
-    .system-icon {
-      cursor: pointer;
-      margin-left: 10px;
-    }
-
-    .system-icon:active {
-      color: black;
-    }
-
-    .system-time {
-      margin-left: auto;
-      margin-right: 10px;
-    }
-
-    /* Desktop */
-    
-    .desktop {
-      position: relative;
-      overflow: hidden;
       width: 100%;
-      height: 100%;
-      padding: 10px;
-      background: url("https://orig00.deviantart.net/97d6/f/2014/257/b/5/animated_pixel_stars___box_background_by_driftwoodbones-d7z0h0p.gif");
-      user-select: none;
     }
 
-    /* Windows */
-
-    #resume-window {
-      top: 100px;
-      left: 300px;
+    @media (max-width: 800px) {
+      .all {
+        flex-direction: column;
+      }
     }
 
-    #projects-window {
-      top: 200px;
-      left: 600px;
+    /**
+     *  Layout
+     */
+
+    .break {
+      margin-top: 40px;
     }
 
-    .window {
-      display: inline-block;
-      margin-bottom: 15px;
-      width: 300px;
-      position: absolute;
-      z-index: 2;
-      cursor: move;
-      background: black;
-      border: 1px solid white;
+    @media (max-width: 800px) {
+      .links {
+        display: none;
+      }
     }
 
-    .window.animated {
-      animation: 0.2s window-open ease;
-    }
-
-    .window:active {
-      box-shadow:  5px 5px 0px 0px rgba(0, 0, 0, 1), 6px 6px 0px 0px rgba(255, 255, 255, 1);
-    }
-
-    .window.resume {
-      width: 500px;
-    }
-
-    .window-toolbar {
-      height: 25px;
-      font-size: 12px;
-      user-select: none;
-      color: white;
-      border-bottom: 1px solid white;
-    }
-
-    .window-toolbar-title {
-      align-self: center;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .window-close-btn {
-      color: white;
+    .link {
       cursor: pointer;
-      display: flex;
-      justify-content: center;
-      flex-direction: column;
-      text-align: center;
     }
 
-    .window-close-btn:active {
-      color: black;
-    }
-
-    .window-contents {
-      padding: 15px;
-      font-size: 14px;
-      user-select: none;
-      max-height: 200px;
-      overflow: scroll;
-    }
-
-    .spacer {
-      margin-bottom: 20px;
-    }
-
-    .less-label {
-      background: white;
-      color: black;
-      position: absolute;
-      left: 0;
-      bottom: 0;
-    }
-
-    .less-spacer {
-      display: inline-block;
-      width: 10px;
-      height: 18px;
-      border: 1px solid white;
-      background: black;
-      vertical-align: text-bottom;
-      animation: none;
-    }
-
-    .window.active .less-spacer {
-      animation: 1s console-blink infinite;
-      animation-timing-function: steps(1,end);
-
-    }
-
-    .window-contents::-webkit-scrollbar {
-      width: 10px;
-      height: 8px;
-      background-color: black;
-    }
-
-    .window-contents::-webkit-scrollbar-thumb  {
-      background-color: black;
-      border-top: 1px solid white;
-      border-left: 1px solid white;
-      border-bottom: 1px solid white;
-      border-right: none;
-    }
-
-    .window-contents::-webkit-scrollbar-corner {
-      background-color: black;
-    }
-
-    .project {
-      padding: 20px 0px;
-      border-bottom: 1px dashed white;
-    }
-
-    .project:first-child {
-      padding: 0px 0px 20px 0px;
-    }
-
-    .project:last-child {
-      border: none;
-    }
-
-    .project-title, .resume-header {
+    .link:hover {
       text-decoration: underline;
     }
 
-    .project-description {
-      margin: 10px 0px;
+    .bullet {
+      margin-right: 10px;
     }
 
-    .spacer {
-      margin-top: 10px;
+    .blue {
+      color: #86a8fe;
     }
 
-    /* Files */
+    .purple {
+      color: #b994ff;
+    }
 
-    .file {
-      position: relative;
-      margin-bottom: 20px;
-      cursor: pointer;
-      display: inline-flex;
-      z-index: 1;
+    .pink {
+      color: #e88ce2;
+    }
+
+    .sparkle {
+      animation: sparkle-animation 60s linear infinite;
+      height: 24px;
+      width: 24px;
+    }
+
+    /**
+     *  Panels
+     */
+
+    .panel {
+      display: flex;
+      height: 100%;
+    }
+
+    .left-panel {
+      display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-    }
-
-    .file:active { 
-      cursor: move;
-    }
-
-    .file-name {
-      display: inline-block;
-    }
-
-    .file:active .file-name {
+      width: 30%;
       background: white;
-      color: black;
     }
 
-    .file-icon {
+    @media (max-width: 800px) {
+      .left-panel {
+        width: 100%;
+      }
+    }
+
+    .right-panel {
+      background: linear-gradient(200deg, #86a8fe, #b994ff, #e88ce2);
+      background-size: 1200% 1200%;
+      animation: rainbow 30s ease infinite;
+      width: 70%;
+    }
+
+    @media (max-width: 800px) {
+      .right-panel {
+        width: 100%;
+      }
+    }
+
+    .right-panel .panel-content {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      flex-grow: 1;
+    }
+
+    /**
+     *  Portfolio
+     */
+
+    .portfolio {
       display: block;
-      position: relative;
-      width: 50px;
-      height: 75px;
-      background: black;
-      outline: 1px solid white;
+      height: 100%;
+      justify-content: space-around;
+      margin-top: 50px;
+      opacity: 0;
+      width: 80%;
     }
 
-    .file-corner-inner {
-      width: 20px;
-      height: 20px;
+    .portfolio.fade-in {
+      animation: 1s fade-in ease forwards;
+    }
+
+    .portfolio-item {
+      display: inline-block;
       background: white;
-      float: right;
+      height: 200px;
+      margin: 20px;
+      width: 20%;
     }
 
-    .file-corner-outer {
+    /**
+     *  Waves
+     */
+
+    .desktop-waves {
+      display: flex;
+      justify-content: center;
+      height: 100%;
+      position: relative;
+      width: 80px;
+    }
+
+    @media (max-width: 800px) {
+      .desktop-waves {
+        display: none;
+      }
+    }
+
+    .mobile-waves {
+      background: #b994ff;
+      display: none;
+      height: 200px;
+      position: relative;
+    }
+
+    @media (max-width: 800px) {
+      .mobile-waves {
+        display: block;
+      }
+    }
+
+    .mobile-wave {
+      animation: 10s mobile-wave linear infinite;
+      background: url("mobile-wave.svg");
       position: absolute;
-      right: -1px;
-      top: -1px;
-      width: 0px;
-      height: 0px;
-      border-left: 10px solid transparent;
-      border-top: 10px solid black;
-      border-right: 10px solid black;
-      border-bottom: 10px solid transparent;
+      height: 100px;
+      width: 100%;
+    }
+
+    .mobile-wave-2 {
+      animation: mobile-wave 6s linear infinite;
+      opacity: 0.25;
+    }
+
+    .wave {
+      background-image: url("wave.svg");
+      border-left: 10px solid white;
+      height: 100%;
+      position: absolute;
+      width: 80px;
+      z-index: 2;
+      animation: desktop-wave 10s linear infinite;
+    }
+
+    .wave.stop {
+      animation: 1s shrink-wave forwards, desktop-wave 5s linear infinite;
+    }
+
+    .wave-2 {
+      animation: desktop-wave 6s linear infinite;
+      opacity: 0.25;
+    }
+
+    .spacer {
+      background: white;
+      height: 100%;
+      left: 0;
+      position: absolute;
+      width: 0;
+      z-index: 1;
+    }
+
+    .spacer.grow {
+      animation: 1s grow-spacer forwards;
+    }
+
+    /**
+     *  Animations
+     */
+
+    @keyframes fade-in {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    @keyframes grow-spacer {
+      0% {
+        width: 0px;
+      }
+      100% {
+        width: 40px;
+      }
+    }
+
+    @keyframes desktop-wave {
+      0% {
+        background-position: 0 400px;
+      }
+      100% {
+        background-position: 0 0;
+      }
+    }
+
+    @keyframes mobile-wave {
+      0% {
+        background-position: 400px 0;
+      }
+      100% {
+        background-position: 0 0;
+      }
+    }
+
+    @keyframes rainbow {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    @keyframes shrink-wave {
+      0% {
+        transform: scaleX(1);
+      }
+      100% {
+        transform: scaleX(0);
+      }
+    }
+
+    @keyframes sparkle-animation {
+      0% {
+        filter: hue-rotate(220deg);
+      }
+      50% {
+        filter: hue-rotate(170deg);
+      }
+      100% {
+        filter: hue-rotate(220deg);
+      }
     }
     </style>
   </head>
   <body>
-      <div class="computer">
-        <div class="system-window-toolbar">
-          <div class="container">
-            <span class="system-icon"></span>
-            <span id="system-time" class="system-time"></span>
+    <div class="all">
+      <div class="mobile-waves">
+        <div class="mobile-wave"></div>
+        <div class="mobile-wave mobile-wave-2"></div>
+      </div>
+      <div class="left-panel panel">
+        <div>
+          <div>I'm Mike Steele. <img class="sparkle" src="https://twemoji.maxcdn.com/2/svg/2728.svg"/></div>
+          <div>I'm a developer, traveler,</div>
+          <div>art lover, &amp; French learner.</div>
+          <div class="break"></div>
+          <div class="links">
+            <div>
+              <span>
+                <span class="bullet">&bull;</span>
+                <span class="link">Projects</span>
+            </div>
+            <div>
+              <span>
+                <span class="bullet">&bull;</span>
+                <span id="sketches-link" class="link">Sketches</span>
+              </span>
+            </div>
+            <div>
+              <span>
+                <span class="bullet">&bull;</span>
+                <span class="link">Resume</span>
+              </span>
+            </div>
           </div>
+          <div class="break"></div>
+          <div>hi@mike.cool</div>
         </div>
-        <div class="desktop">
-          <div class="windows-container">
-          <div id="ask-window" class="window" draggable="true" data-top="81" data-left="163">
-            <div class="window-toolbar"></div>
-            <div class="window-contents">
-              Are you sure you want to close this window?
-              <div class="btn-group">
-                <a id="yes-btn" class="btn">
-                  Yes
-                </a>
-                <a class="btn">
-                  No
-                </a>
-              </div>
+      </div>
+      <div class="right-panel panel">
+        <div class="desktop-waves">
+          <div id="wave-1" class="wave-1 wave"></div>
+          <div id="wave-2" class="wave-2 wave"></div>
+          <div id="wave-spacer" class="spacer"></div>
+        </div>
+        <div class="panel-content">
+          <div id="portfolio" class="portfolio">
+            <div class="portfolio-item">
             </div>
-          </div>
-          <div class="window active" draggable="true" data-top="308" data-left="25">
-            <div class="window-toolbar">
-              <div class="full container">
-                <div class="window-toolbar-title">
-                  less hello.txt
-                </div>
-              </div>
+            <div class="portfolio-item">
             </div>
-            <div class="window-contents">
-              <div>I'm Mike Steele.</div>
-              <div>I'm currently a software engineer at athenahealth.</div>
-              <div>Contact me at `hi@mike.cool`</div>
-              <div>:-)</div>
-              <div class="spacer"></div>
+            <div class="portfolio-item">
             </div>
-            <div class="less-label">
-              hello.txt (END)
-              <div class="less-spacer"></div>
+            <div class="portfolio-item">
             </div>
-          </div>
-          <div id="projects-window" class="window" draggable="true" data-top="19" data-left="589">
-            <div class="window-toolbar">
-              <div class="full container">
-                <div class="window-toolbar-title">
-                  projects.md
-                </div>
-                <div class="window-close-btn">
-                  <a class="btn no-borders">x</a>
-                </div>
-              </div>
+            <div class="portfolio-item">
             </div>
-            <div class="window-contents">
-              <div class="project">
-                <div class="project-title">dual-captions</div>
-                <div class="project-description">YouTube add-on to show captions in two languages</div>
-                <a class="btn" href="https://github.com/mikesteele/dual-captions">
-                  View Source
-                </a>
-              </div>
-              <div class="project">
-                <div class="project-title">sparkly</div>
-                <div class="project-description">Sparkly Polymer elements with no dependencies</div>
-                <a class="btn" href="https://github.com/mikesteele/sparkly">
-                  View Source
-                </a>
-              </div>
-              <div class="project">
-                <div class="project-title">mbta-cli</div>
-                <div class="project-description">CLI for the MBTA</div>
-                <a class="btn" href="https://github.com/mikesteele/mbta-cli">
-                  View Source
-                </a>
-              </div>
-            </div>
-          </div>
-          <div id="resume-window" class="window resume" draggable="true"  data-top="337" data-left="414">
-            <div class="window-toolbar">
-              <div class="full container">
-                <div class="window-toolbar-title">
-                  resume.pdf
-                </div>
-                <div class="window-close-btn">
-                  <a class="btn no-borders">x</a>
-                </div>
-              </div>
-            </div>
-            <div class="window-contents">
-              <a class="btn float-right" href="https://www.linkedin.com/in/mikesteeledev/">See Full Version</a>
-              <div>Mike Steele</div>
-              <div>Web Developer</div>
-              <div>Boston, MA</div>
-              <div class="spacer"></div>
-              <div class="resume-header">Work</div>
-              <div>Member of Technical Staff @ athenahealth</div>
-              <div>Apr 2017 - Present</div>
-              <div class="spacer"></div>
-              <div>Software Engineer @ Wanderu</div>
-              <div>Dec 2015 - Mar 2017</div>
-              <div class="spacer"></div>
-              <div>Grader @ UMass Amherst</div>
-              <div>Sep 2014 - Dec 2015</div>
-              <div class="spacer"></div>
-              <div>Software Engineering Intern @ Cuseum</div>
-              <div>May 2015 - Sep 2015</div>
-              <div class="spacer"></div>
-              <div class="resume-header">Education</div>
-              <div>BA in Computer Science</div>
-              <div>UMass Amherst, Dec 2015</div>
-            </div>
-          </div>
-          </div>
-          <div class="files-container">
-            <div id="projects-file" class="file" draggable="true">
-              <div class="file-icon">
-                <div class="file-corner-inner">
-                  <div class="file-corner-outer">
-                  </div>
-                </div>
-              </div>
-              <div class="file-name">
-                projects.md
-              </div>
-            </div>
-            <div id="resume-file" class="file" draggable="true">
-              <div class="file-icon">
-                <div class="file-corner-inner">
-                  <div class="file-corner-outer">
-                  </div>
-                </div>
-              </div>
-              <div class="file-name">
-                resume.pdf
-              </div>
+            <div class="portfolio-item">
             </div>
           </div>
         </div>
-    <img id="blank" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" style="display:none"/>
+      </div>
+    </div>
     <script type="text/javascript">
-    window.windowZIndex = 100;
+      /**
+       *  Elements
+       */
+      const sketchesLink = document.getElementById("sketches-link");
+      const wave1 = document.getElementById("wave-1");
+      const wave2 = document.getElementById("wave-2");
+      const waveSpacer = document.getElementById("wave-spacer");
+      const portfolio = document.getElementById("portfolio");
 
-    let draggableElements = document.querySelectorAll("[draggable=true]");
-
-    Array.from(draggableElements).forEach(el => {
-      el.ondragstart = (e) => {
-        e.dataTransfer.setDragImage(document.getElementById("blank"), 0, 0);
-        el.dataset.screenx = e.screenX;
-        el.dataset.screeny = e.screenY;
-        window.windowZIndex++;
-        el.style.zIndex = window.windowZIndex;
-        Array.from(document.querySelectorAll(".active")).forEach(_el => {
-          _el.classList.remove("active");
-        });
-        el.classList.add("active");
-      };
-      el.ondrag = (e) => {
-        if (el.dataset.screenx && el.dataset.screeny && e.screenX && e.screenY) {
-          let xDifference = e.screenX - el.dataset.screenx;
-          let yDifference = e.screenY - el.dataset.screeny;
-          el.dataset.screenx = e.screenX;
-          el.dataset.screeny = e.screenY;
-          if (el.dataset.left) {
-            el.dataset.left = Number(el.dataset.left) + xDifference;
-          } else {
-            el.dataset.left = xDifference;
-          }
-          el.style.left = `${el.dataset.left}px`;
-          if (el.dataset.top) {
-            el.dataset.top = Number(el.dataset.top) + yDifference;
-          } else {
-            el.dataset.top = yDifference;
-          }
-          el.style.top = `${el.dataset.top}px`;
-        }
-      };
-      el.ondragend = () => {
-        delete el.dataset.screenx;
-        delete el.dataset.screeny;
-      };
-      el.onclick = () => {
-        makeWindowActive(el);
-      }
-      if (el.dataset.top) {
-        el.style.top = `${el.dataset.top}px`;
-      }
-      if (el.dataset.left) {
-        el.style.left = `${el.dataset.left}px`;
-      }
-    });
-
-
-    let makeWindowActive = (windowElement) => {
-      Array.from(document.querySelectorAll(".active")).forEach(el => {
-        el.classList.remove("active");
+      sketchesLink.addEventListener("click", () => {
+        wave1.classList.add("stop");
+        wave2.classList.add("stop");
+        waveSpacer.classList.add("grow");
+        portfolio.classList.add("fade-in");
       });
-      windowElement.classList.add("active");
-      
-      window.windowZIndex++;
-      windowElement.style.zIndex = window.windowZIndex;
-    }
-
-    let projectsFile = document.getElementById("projects-file");
-    let resumeFile = document.getElementById("resume-file");
-
-    let projectsWindow = document.getElementById("projects-window");
-    let resumeWindow = document.getElementById("resume-window");
-    let askWindow = document.getElementById("ask-window");
-
-    let projectsWindowCloseBtn = document.querySelector("#projects-window .window-close-btn");
-    let resumeWindowCloseBtn = document.querySelector("#resume-window .window-close-btn");
-    let askWindowCloseBtn = document.querySelector("#yes-btn");
-
-    projectsFile.onclick = (e) => {
-      if (projectsWindow.classList.contains("hidden")) {
-        projectsWindow.classList.remove("hidden");
-        projectsWindow.classList.add("animated");
-        makeWindowActive(projectsWindow);
-      }
-    }
-    resumeFile.onclick = (e) => {
-      if (resumeWindow.classList.contains("hidden")) {
-        resumeWindow.classList.remove("hidden");
-        resumeWindow.classList.add("animated");
-        makeWindowActive(resumeWindow);
-      }
-    }
-    projectsWindowCloseBtn.onclick = (e) => {
-      projectsWindow.classList.add("hidden");
-      projectsWindow.classList.remove("animated");
-    }
-    resumeWindowCloseBtn.onclick = (e) => {
-      resumeWindow.classList.add("hidden");
-      resumeWindow.classList.remove("animated");
-    }
-
-    askWindowCloseBtn.onclick = (e) => {
-      askWindow.classList.add("hidden");
-    }
-
-    let systemTime = document.getElementById("system-time");
-
-    systemTime.innerHTML = new Date().toLocaleTimeString("en-US");
-    window.setInterval(() => {
-      systemTime.innerHTML = new Date().toLocaleTimeString("en-US");
-    }, 1000);
     </script>
   </body>
 </html>
