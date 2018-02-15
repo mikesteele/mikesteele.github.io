@@ -19,7 +19,7 @@
       width: 100%;
     }
 
-    @media (max-width: 1000px) {
+    @media (max-width: 4000px) {
       html, body {
         overflow: auto;
       }
@@ -31,7 +31,7 @@
       width: 100%;
     }
 
-    @media (max-width: 1000px) {
+    @media (max-width: 4000px) {
       .all {
         flex-direction: column;
       }
@@ -50,7 +50,7 @@
       flex-direction: column;
     }
 
-    @media (max-width: 1000px) {
+    @media (max-width: 4000px) {
       .links {
         display: none;
       }
@@ -138,7 +138,7 @@
       background: white;
     }
 
-    @media (max-width: 1000px) {
+    @media (max-width: 4000px) {
       .left-panel {
         height: 300px;
         flex: none;
@@ -147,13 +147,13 @@
     }
 
     .right-panel {
-      background: linear-gradient(200deg, #86a8fe, #b994ff, #e88ce2);
+      background: #b994ff;
       background-size: 1200% 1200%;
       animation: rainbow 30s ease infinite;
       width: 70%;
     }
 
-    @media (max-width: 1000px) {
+    @media (max-width: 4000px) {
       .right-panel {
         flex: none;
         width: 100%;
@@ -182,7 +182,7 @@
       width: 90%;
     }
 
-    @media (max-width: 1000px) {
+    @media (max-width: 4000px) {
       .projects {
       	opacity: 1;
       }
@@ -216,7 +216,7 @@
       width: 80px;
     }
 
-    @media (max-width: 1000px) {
+    @media (max-width: 4000px) {
       .desktop-waves {
         display: none;
       }
@@ -229,7 +229,7 @@
       position: relative;
     }
 
-    @media (max-width: 1000px) {
+    @media (max-width: 4000px) {
       .mobile-waves {
         display: block;
         flex: none;
@@ -262,6 +262,10 @@
 
     .wave.stop {
       animation: 1s shrink-wave forwards, desktop-wave 5s linear infinite;
+    }
+
+    .mobile-wave.stop {
+      animation-play-state: paused;
     }
 
     .wave-2 {
@@ -374,6 +378,10 @@
           	<div class="button main">Resume</div>
           </div>
         </div>
+      </div>
+      <div class="mobile-waves" style="transform: scaleY(-1)">
+        <div class="mobile-wave stop"></div>
+        <div class="mobile-wave mobile-wave-2 stop"></div>
       </div>
       <div class="right-panel panel">
         <div class="desktop-waves">
