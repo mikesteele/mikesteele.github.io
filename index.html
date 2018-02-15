@@ -10,7 +10,7 @@
     html, body {
       background: white;
       color: rgba(0,0,0,0.7);
-      font-family: 'Source Sans Pro', sans-serif;
+      font-family: "Source Sans Pro", sans-serif;
       font-size: 24px;
       font-weight: 400;
       height: 100%;
@@ -19,7 +19,7 @@
       width: 100%;
     }
 
-    @media (max-width: 800px) {
+    @media (max-width: 1000px) {
       html, body {
         overflow: auto;
       }
@@ -31,7 +31,7 @@
       width: 100%;
     }
 
-    @media (max-width: 800px) {
+    @media (max-width: 1000px) {
       .all {
         flex-direction: column;
       }
@@ -45,7 +45,12 @@
       margin-top: 40px;
     }
 
-    @media (max-width: 800px) {
+    .links {
+      display: flex;
+      flex-direction: column;
+    }
+
+    @media (max-width: 1000px) {
       .links {
         display: none;
       }
@@ -81,6 +86,40 @@
       width: 24px;
     }
 
+    .bold {
+      font-weight: 700;
+    }
+
+    /**
+     *  Buttons
+     */
+
+    .button {
+      background: rgba(255,255,255,0.35);
+      display: inline-block;
+      flex: none;
+      margin-right: 10px;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .button.main {
+      border: 1px solid rgba(0,0,0,0.3);
+      border-radius: 5px;
+      margin-top: 10px;
+      width: 120px;
+    }
+
+    .button:hover {
+    	border: 1px solid rgba(0,0,0,0.7);
+      cursor: pointer;
+
+    }
+
+    .button:active {
+      
+    }
+
     /**
      *  Panels
      */
@@ -99,7 +138,7 @@
       background: white;
     }
 
-    @media (max-width: 800px) {
+    @media (max-width: 1000px) {
       .left-panel {
         height: 300px;
         flex: none;
@@ -114,7 +153,7 @@
       width: 70%;
     }
 
-    @media (max-width: 800px) {
+    @media (max-width: 1000px) {
       .right-panel {
         flex: none;
         width: 100%;
@@ -129,28 +168,40 @@
     }
 
     /**
-     *  Portfolio
+     *  Projects
      */
 
-    .portfolio {
-      display: block;
+    .projects {
+      display: flex;
+      flex-direction: column;
       height: 100%;
-      justify-content: space-around;
+      align-items: center;
       margin-top: 50px;
-      opacity: 0;
-      width: 80%;
+      opacity: 1;
+      /*opacity: 0;*/
+      width: 90%;
     }
 
-    .portfolio.fade-in {
+    @media (max-width: 1000px) {
+      .projects {
+      	opacity: 1;
+      }
+    }
+
+    .projects.fade-in {
       animation: 1s fade-in ease forwards;
     }
 
-    .portfolio-item {
-      display: inline-block;
-      background: white;
+    .project {
+      display: flex;
+      flex-direction: column;
       height: 200px;
-      margin: 20px;
-      width: 20%;
+      padding: 10px;
+      width: 100%;
+    }
+
+    .project-image.dual-captions {
+      background: url(https://github.com/mikesteele/dual-captions/raw/master/screenshot.png) center/cover;
     }
 
     /**
@@ -165,7 +216,7 @@
       width: 80px;
     }
 
-    @media (max-width: 800px) {
+    @media (max-width: 1000px) {
       .desktop-waves {
         display: none;
       }
@@ -178,7 +229,7 @@
       position: relative;
     }
 
-    @media (max-width: 800px) {
+    @media (max-width: 1000px) {
       .mobile-waves {
         display: block;
         flex: none;
@@ -313,31 +364,15 @@
       </div>
       <div class="left-panel panel">
         <div>
-          <div>I'm Mike Steele. <img class="sparkle" src="https://twemoji.maxcdn.com/2/svg/2728.svg"/></div>
+          <div class="bold">I'm Mike Steele. <img class="sparkle" src="https://twemoji.maxcdn.com/2/svg/2728.svg"/></div>
           <div>I'm a developer, traveler,</div>
           <div>art lover, &amp; French learner.</div>
           <div class="break"></div>
           <div class="links">
-            <div>
-              <span>
-                <span class="bullet">&bull;</span>
-                <span class="link">Projects</span>
-            </div>
-            <div>
-              <span>
-                <span class="bullet">&bull;</span>
-                <span id="sketches-link" class="link">Sketches</span>
-              </span>
-            </div>
-            <div>
-              <span>
-                <span class="bullet">&bull;</span>
-                <span class="link">Resume</span>
-              </span>
-            </div>
+          	<div class="button main">Projects</div>
+          	<div class="button main">Sketches</div>
+          	<div class="button main">Resume</div>
           </div>
-          <div class="break"></div>
-          <div>hi@mike.cool</div>
         </div>
       </div>
       <div class="right-panel panel">
@@ -347,18 +382,25 @@
           <div id="wave-spacer" class="spacer"></div>
         </div>
         <div class="panel-content">
-          <div id="portfolio" class="portfolio">
-            <div class="portfolio-item">
+          <div id="projects" class="projects">
+            <div class="project">
+              <div class="bold">Dual Captions for YouTube</div>
+              <div>YouTube add-on to show captions in two languages.</div>
+              <br/>
+              <div>&bull; Targeted at language learners</div>
+              <div>&bull; 100+ languages supported</div>
             </div>
-            <div class="portfolio-item">
-            </div>
-            <div class="portfolio-item">
-            </div>
-            <div class="portfolio-item">
-            </div>
-            <div class="portfolio-item">
-            </div>
-            <div class="portfolio-item">
+            <div class="project">
+              <div class="bold">mbta-cli</div>
+              <div>CLI for the MBTA</div>
+              <br/>
+              <div>&bull; </div>
+              <div>&bull; 100+ languages supported</div>
+              <br/>
+              <div>
+              	<div class="button">View on GitHub</div>
+              	<div class="button">Add to Chrome</div>
+              </div>
             </div>
           </div>
         </div>
