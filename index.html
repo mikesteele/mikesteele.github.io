@@ -81,7 +81,6 @@
     }
 
     .sparkle {
-      animation: sparkle-animation 60s linear infinite;
       height: 24px;
       width: 24px;
     }
@@ -358,6 +357,50 @@
         filter: hue-rotate(220deg);
       }
     }
+
+
+.bubble {
+  background: white;
+  border-radius: 50%;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.big.bubble {
+  width: 80px;
+  height: 80px;
+  top: 90px;
+  left: 40px;
+}
+
+.bubble img {
+  width: 50%;
+  height: 50%;
+}
+
+.medium.bubble {
+  width: 60px;
+  height: 60px;
+  top: 30px;
+  left: 100px;
+}
+
+.little.bubble {
+  width: 25px;
+  height: 25px;
+  top: 10px;
+  left: 75px;
+}
+
+.bubbles {
+  position: relative;
+  width: 200px;
+  flex: none;
+  height: 300px;
+}
+
     </style>
   </head>
   <body>
@@ -392,6 +435,16 @@
         <div class="panel-content">
           <div id="projects" class="projects">
             <div class="project">
+              <div class="bubbles">
+                <div class="little bubble">
+                </div>
+                <div class="medium bubble">
+                <img src="https://twemoji.maxcdn.com/2/72x72/1f4fa.png">
+                </div>
+                <div class="big bubble">
+                <img src="https://twemoji.maxcdn.com/2/72x72/1f4ac.png">
+                </div>
+              </div>
               <div class="bold">Dual Captions for YouTube</div>
               <div>YouTube add-on to show captions in two languages.</div>
               <br/>
