@@ -1,4 +1,5 @@
 <!doctype html>
+<html lang="en">
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-55720034-2"></script>
@@ -24,306 +25,68 @@
       font-weight: 400;
       height: 100%;
       margin: 0;
-      overflow: hidden;
       width: 100%;
     }
 
-    @media (max-width: 4000px) {
-      html, body {
-        overflow: auto;
-      }
+    .bold {
+      font-weight: 900;
     }
 
-    .all {
-      display: flex;
-      height: 100%;
-      width: 100%;
-    }
-
-    @media (max-width: 4000px) {
-      .all {
-        flex-direction: column;
-      }
-    }
-
-    /**
-     *  Layout
-     */
-
-    .break {
-      margin-top: 40px;
-    }
-
-    .links {
-      display: flex;
-      flex-direction: column;
-    }
-
-    @media (max-width: 4000px) {
-      .links {
-        display: none;
-      }
-    }
-
-    .link {
-      cursor: pointer;
-    }
-
-    .link:hover {
-      text-decoration: underline;
-    }
-
-    .bullet {
-      margin-right: 10px;
-    }
-
-    .blue {
-      color: #86a8fe;
-    }
-
-    .purple {
-      color: #b994ff;
-    }
-
-    .pink {
-      color: #e88ce2;
-    }
-
-    .sparkle {
+    .emoji {
       height: 24px;
       width: 24px;
     }
 
-    .bold {
-      font-weight: 700;
-    }
-
     /**
-     *  Buttons
+     *  Sections
      */
 
-    .button {
-      background: white;
-      display: inline-block;
-      flex: none;
-      padding: 10px;
-      border-bottom: 5px solid #8e53ff;
-
-    }
-
-    .button.main {
-      border: 1px solid rgba(0,0,0,0.3);
-      border-radius: 5px;
-      margin-top: 10px;
-      width: 120px;
-    }
-
-    .button:hover {
-    	border: 1px solid rgba(0,0,0,0.7);
-      cursor: pointer;
-
-    }
-
-    .button:active {
-      
-    }
-
-    /**
-     *  Panels
-     */
-
-    .panel {
+    .bio {
+      align-items: center;
       display: flex;
-      height: 100%;
-    }
-
-    .left-panel {
-      display: flex;
-      flex-direction: column;
+      height: 300px;
       justify-content: center;
-      align-items: center;
-      width: 30%;
-      background: white;
-    }
-
-    @media (max-width: 4000px) {
-      .left-panel {
-        height: 300px;
-        flex: none;
-        width: 100%;
-      }
-    }
-
-    .right-panel {
-      background: #b994ff;
-      background-size: 1200% 1200%;
-      animation: rainbow 30s ease infinite;
-      width: 70%;
-    }
-
-    @media (max-width: 4000px) {
-      .right-panel {
-        flex: none;
-        width: 100%;
-      }
-    }
-
-    .right-panel .panel-content {
-      align-items: center;
-      display: flex;
-      justify-content: center;
-      flex-grow: 1;
-    }
-
-    /**
-     *  Projects
-     */
-
-    .projects {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      align-items: center;
-      margin-top: 50px;
-      opacity: 1;
-      /*opacity: 0;*/
-      width: 95%;
-    }
-
-    @media (max-width: 4000px) {
-      .projects {
-      	opacity: 1;
-      }
-    }
-
-    .projects.fade-in {
-      animation: 1s fade-in ease forwards;
-    }
-
-    .project {
-      display: flex;
-      flex-direction: row;
-      height: 200px;
-    }
-
-    .project-image.dual-captions {
-      background: url(https://github.com/mikesteele/dual-captions/raw/master/screenshot.png) center/cover;
     }
 
     /**
      *  Waves
      */
 
-    .desktop-waves {
-      display: flex;
-      justify-content: center;
-      height: 100%;
-      position: relative;
-      width: 80px;
-    }
-
-    @media (max-width: 4000px) {
-      .desktop-waves {
-        display: none;
-      }
-    }
-
-    .mobile-waves {
+    .waves {
       background: #b994ff;
-      display: none;
       height: 100px;
       position: relative;
-    }
-
-    @media (max-width: 4000px) {
-      .mobile-waves {
-        display: block;
-        flex: none;
-      }
-    }
-
-    .mobile-wave {
-      animation: 10s mobile-wave linear infinite;
-      background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScyMDAnIGhlaWdo%0D%0AdD0nMjAwJyB2aWV3Qm94PSIwIDAgMjAwIDIwMCI+Cgk8cGF0aCBkPSdNMCA1MAogICAgICAgICAg%0D%0AICAgQyA0MCAxMCwgNjAgMTAsIDEwMCA1MCBDIDE0MCA5MCwgMTYwIDkwLCAyMDAgNTAKICAgICAg%0D%0AICAgICAgIEMgMjQwIDEwLCAyNjAgMTAsIDMwMCA1MCBDIDM0MCA5MCwgMzYwIDkwLCA0MDAgNTAK%0D%0AICAgICAgICAgICAgIEwgNDAwIDEwMCBMIDAgMTAwJyBmaWxsPSd3aGl0ZScgc3Ryb2tlPSd3aGl0%0D%0AZScgc3Ryb2tlLXdpZHRoPScyJyB0cmFuc2Zvcm09J3JvdGF0ZSgwKSB0cmFuc2xhdGUoMCknLz4K%0D%0APC9zdmc+);
-      bottom: 0;
-      position: absolute;
-      height: 100px;
-      width: 100%;
-    }
-
-    .mobile-wave-2 {
-      animation: mobile-wave 6s linear infinite;
-      opacity: 0.25;
     }
 
     .wave {
-      background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScyMDAnIGhlaWdo%0D%0AdD0nMjAwJyB2aWV3Qm94PSIwIDAgMjAwIDIwMCI+Cgk8cGF0aCBkPSdNMCA1MAogICAgICAgICAg%0D%0AICAgQyA0MCAxMCwgNjAgMTAsIDEwMCA1MCBDIDE0MCA5MCwgMTYwIDkwLCAyMDAgNTAKICAgICAg%0D%0AICAgICAgIEMgMjQwIDEwLCAyNjAgMTAsIDMwMCA1MCBDIDM0MCA5MCwgMzYwIDkwLCA0MDAgNTAK%0D%0AICAgICAgICAgICAgIEwgNDAwIDEwMCBMIDAgMTAwJyBmaWxsPSd3aGl0ZScgc3Ryb2tlPSd3aGl0%0D%0AZScgc3Ryb2tlLXdpZHRoPScyJyB0cmFuc2Zvcm09J3JvdGF0ZSg5MCkgdHJhbnNsYXRlKDAgLTkw%0D%0AKScvPgo8L3N2Zz4=);
-      border-left: 10px solid white;
-      height: 100%;
+      background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScyMDAnIGhlaWdo%0D%0AdD0nMjAwJyB2aWV3Qm94PSIwIDAgMjAwIDIwMCI+Cgk8cGF0aCBkPSdNMCA1MAogICAgICAgICAg%0D%0AICAgQyA0MCAxMCwgNjAgMTAsIDEwMCA1MCBDIDE0MCA5MCwgMTYwIDkwLCAyMDAgNTAKICAgICAg%0D%0AICAgICAgIEMgMjQwIDEwLCAyNjAgMTAsIDMwMCA1MCBDIDM0MCA5MCwgMzYwIDkwLCA0MDAgNTAK%0D%0AICAgICAgICAgICAgIEwgNDAwIDEwMCBMIDAgMTAwJyBmaWxsPSd3aGl0ZScgc3Ryb2tlPSd3aGl0%0D%0AZScgc3Ryb2tlLXdpZHRoPScyJyB0cmFuc2Zvcm09J3JvdGF0ZSgwKSB0cmFuc2xhdGUoMCknLz4K%0D%0APC9zdmc+);
+      bottom: 0;
+      height: 100px;
       position: absolute;
-      width: 80px;
-      z-index: 2;
-      animation: desktop-wave 10s linear infinite;
+      width: 100%;
     }
 
-    .wave.stop {
-      animation: 1s shrink-wave forwards, desktop-wave 5s linear infinite;
-    }
-
-    .mobile-wave.stop {
-      animation-play-state: paused;
-    }
-
-    .wave-2 {
-      animation: desktop-wave 6s linear infinite;
+    .wave.wave-2 {
       opacity: 0.25;
     }
 
-    .spacer {
-      background: white;
-      height: 100%;
-      left: 0;
-      position: absolute;
-      width: 0;
-      z-index: 1;
+    .animated .wave {
+      animation: 10s move-wave linear infinite;
     }
 
-    .spacer.grow {
-      animation: 1s grow-spacer forwards;
+    .animated .wave-2 {
+      animation: move-wave 6s linear infinite;
+    }
+
+    .flip-y {
+      transform: scaleY(-1);
     }
 
     /**
      *  Animations
      */
 
-    @keyframes fade-in {
-      0% {
-        opacity: 0;
-      }
-      100% {
-        opacity: 1;
-      }
-    }
-
-    @keyframes grow-spacer {
-      0% {
-        width: 0px;
-      }
-      100% {
-        width: 40px;
-      }
-    }
-
-    @keyframes desktop-wave {
-      0% {
-        background-position: 0 400px;
-      }
-      100% {
-        background-position: 0 0;
-      }
-    }
-
-    @keyframes mobile-wave {
+    @keyframes move-wave {
       0% {
         background-position: 400px 0;
       }
@@ -331,160 +94,24 @@
         background-position: 0 0;
       }
     }
-
-    @keyframes rainbow {
-      0% {
-        background-position: 0% 50%;
-      }
-      50% {
-        background-position: 100% 50%;
-      }
-      100% {
-        background-position: 0% 50%;
-      }
-    }
-
-    @keyframes shrink-wave {
-      0% {
-        transform: scaleX(1);
-      }
-      100% {
-        transform: scaleX(0);
-      }
-    }
-
-    @keyframes sparkle-animation {
-      0% {
-        filter: hue-rotate(220deg);
-      }
-      50% {
-        filter: hue-rotate(170deg);
-      }
-      100% {
-        filter: hue-rotate(220deg);
-      }
-    }
-
-
-.bubble {
-  background: white;
-  border-radius: 50%;
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-
-.big.bubble {
-  width: 80px;
-  height: 80px;
-  top: 90px;
-  left: 0px;
-}
-
-.bubble img {
-  width: 50%;
-  height: 50%;
-}
-
-.medium.bubble {
-  width: 60px;
-  height: 60px;
-  top: 40px;
-  left: 60px;
-}
-
-.little.bubble {
-  width: 35px;
-  height: 35px;
-  top: 10px;
-  left: 35px;
-}
-
-.bubbles {
-  position: relative;
-  width: 130px;
-  flex: none;
-  height: 300px;
-}
-
     </style>
   </head>
   <body>
     <div class="all">
-      <div class="mobile-waves">
-        <div class="mobile-wave"></div>
-        <div class="mobile-wave mobile-wave-2"></div>
+      <div class="waves animated">
+        <div class="wave wave-1"></div>
+        <div class="wave wave-2"></div>
       </div>
-      <div class="left-panel panel">
+      <div class="bio">
         <div>
-          <div class="bold">I'm Mike Steele. <img class="sparkle" src="https://twemoji.maxcdn.com/2/svg/2728.svg"/></div>
+          <div class="bold">I'm Mike Steele. <img class="emoji" src="https://twemoji.maxcdn.com/2/svg/2728.svg"/></div>
           <div>I'm a developer, traveler,</div>
-          <div>art lover, &amp; French learner.</div>
-          <div class="break"></div>
-          <div class="links">
-          	<div class="button main">Projects</div>
-          	<div class="button main">Sketches</div>
-          	<div class="button main">Resume</div>
-          </div>
+          <div>art lover &amp; French learner.</div>
         </div>
       </div>
-      <div class="mobile-waves" style="transform: scaleY(-1)">
-        <div class="mobile-wave stop"></div>
-        <div class="mobile-wave mobile-wave-2 stop"></div>
-      </div>
-      <div class="right-panel panel">
-        <div class="desktop-waves">
-          <div id="wave-1" class="wave-1 wave"></div>
-          <div id="wave-2" class="wave-2 wave"></div>
-          <div id="wave-spacer" class="spacer"></div>
-        </div>
-        <div class="panel-content">
-          <div id="projects" class="projects">
-            <div class="project">
-              <div class="bubbles">
-                <div class="little bubble">
-                <img src="https://twemoji.maxcdn.com/2/72x72/1f30e.png">
-                </div>
-                <div class="medium bubble">
-                <img src="https://twemoji.maxcdn.com/2/72x72/1f4fa.png">
-                </div>
-                <div class="big bubble">
-                <img src="https://twemoji.maxcdn.com/2/72x72/1f4ac.png">
-                </div>
-              </div>
-              <div>
-                <div class="bold">Dual Captions for YouTube</div>
-                <div>YouTube add-on to show captions in two languages.</div>
-                <br/>
-                <div>&bull; Targeted at language learners</div>
-                <div>&bull; 100+ languages supported</div>
-                <br/>
-                <br/>
-                <div class="button">View on GitHub</div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="waves flip-y">
+        <div class="wave"></div>
       </div>
     </div>
-    <script type="text/javascript">
-      /**
-       *  Elements
-       */
-      const sketchesLink = document.getElementById("sketches-link");
-      const wave1 = document.getElementById("wave-1");
-      const wave2 = document.getElementById("wave-2");
-      const waveSpacer = document.getElementById("wave-spacer");
-      const portfolio = document.getElementById("portfolio");
-
-      sketchesLink.addEventListener("click", () => {
-        wave1.classList.add("stop");
-        wave2.classList.add("stop");
-        waveSpacer.classList.add("grow");
-        portfolio.classList.add("fade-in");
-      });
-    </script>
   </body>
 </html>
