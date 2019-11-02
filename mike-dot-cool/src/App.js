@@ -1,13 +1,24 @@
 import React from 'react';
-import Section from './Section';
-import FormFactorAnimation from './FormFactorAnimation';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
+import Homepage from './Homepage';
+import DCSplashPage from './DCSplashPage';
 
 function App() {
   return (
-    <>
-      <Section />
-      <FormFactorAnimation/>
-    </>
+    <Router>
+      <Switch>
+        <Route path="/dc">
+          <DCSplashPage />
+        </Route>
+        <Route path="/">
+          <Homepage />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
