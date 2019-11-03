@@ -147,24 +147,25 @@ function Thing(props) {
   }
   useFrame(() => {
     if (shape === 'cube') {
-      cube1Ref.current.rotation.y = cube1Ref.current.rotation.y + 0.01
+
       cube1Ref.current.rotation.x = cube1Ref.current.rotation.x + 0.01
     }
+          cube1Ref.current.rotation.y = cube1Ref.current.rotation.y + 0.01
   });
 
   const color =  'white';
   return (
     <Spring
       from={{
-        xScale: shape === 'cube' ? 1.8 : 1,
+        xScale: shape === 'cube' ? 4 : 1,
         zScale: shape === 'cube' ? 0.1 : 1,
-        zPosition: shape === 'cube' ? 0.7 : 0,
+        zPosition: shape === 'cube' ? -4 : 0,
         xRotation:  shape === 'cube' ? 0 : 0.5
       }}
       to={{
-        xScale: shape === 'cube' ? 1 : 1.8,
+        xScale: shape === 'cube' ? 1 : 4,
         zScale: shape === 'cube' ? 1 : 0.1,
-        zPosition: shape === 'cube' ? 0 : 0.7,
+        zPosition: shape === 'cube' ? 0 : -4,
         xRotation:  shape === 'cube' ? 0.5 : 0
       }}
     >

@@ -5,8 +5,8 @@ import { apply as applyThree, Canvas, useRender, useThree } from 'react-three-fi
 
 /** This component loads an image and projects it onto a plane */
 function Image({ url, opacity, scale, ...props }) {
-  //const texture = useMemo(() => new THREE.VideoTexture( document.querySelector('video') ), [url])
-  const texture = useMemo(() => new THREE.TextureLoader().load(url), [url])
+  const texture = useMemo(() => new THREE.CanvasTexture( document.querySelector('#myCanvas') ), [url])
+  //const texture = useMemo(() => new THREE.TextureLoader().load(url), [url])
   return (
     <meshLambertMaterial attach="material" opacity={0.3}>
       <primitive attach="map" object={texture} />
