@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import { Canvas, useFrame } from 'react-three-fiber'
 import './index.css';
 import Image from './Image';
-import { Spring } from 'react-spring/renderprops'
+import { Spring, config } from 'react-spring/renderprops'
 
 const MorphCube = props => {
   const { previousShape, shape } = props
@@ -30,12 +30,15 @@ const MorphCube = props => {
       xRotation: 0
     },
     none: {
-      xScale: 0.01,
-      zScale: 0.01,
-      zPosition: -10,
+      xScale: 0,
+      zScale: 0,
+      zPosition: -3,
       xRotation: -1
     }
   }
+
+  const wobblyConfig = { tension: 170, friction: 18 };
+  const springConfig = (previousShape === 'none' && shape === 'cube') ? config.slow : wobblyConfig;
 
   return (
     <Spring
@@ -51,6 +54,7 @@ const MorphCube = props => {
         zPosition: shapes[shape].zPosition,
         xRotation: shapes[shape].xRotation
       }}
+      config={springConfig}
     >
       {props => (
         <mesh ref={cube1Ref} position={[0,0,props.zPosition]} rotation={[props.xRotation, 0, 0]}>
