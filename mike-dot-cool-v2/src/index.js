@@ -149,9 +149,6 @@ function Thing(props) {
     if (shape === 'cube') {
       cube1Ref.current.rotation.y = cube1Ref.current.rotation.y + 0.01
       cube1Ref.current.rotation.x = cube1Ref.current.rotation.x + 0.01
-    } else {
-      cube1Ref.current.rotation.x = 0;
-      cube1Ref.current.rotation.y = 0;
     }
   });
 
@@ -162,25 +159,33 @@ function Thing(props) {
         xScale: shape === 'cube' ? 1.8 : 1,
         zScale: shape === 'cube' ? 0.1 : 1,
         zPosition: shape === 'cube' ? 0.7 : 0,
+        xRotation:  shape === 'cube' ? 0 : 0.5
       }}
       to={{
         xScale: shape === 'cube' ? 1 : 1.8,
         zScale: shape === 'cube' ? 1 : 0.1,
         zPosition: shape === 'cube' ? 0 : 0.7,
+        xRotation:  shape === 'cube' ? 0.5 : 0
       }}
     >
-      {props => (
-        <mesh ref={cube1Ref} position={[0,0,props.zPosition]}>
-          <boxBufferGeometry attach="geometry" args={[props.xScale, 1, props.zScale]} />
-          {shape === 'cube' ? (
-            <meshPhongMaterial color={color} wireframe attach="material" />
-          ): (
-            <Image url="/1.png" />
-          )}
-          <boxBufferGeometry attach="geometry" args={[props.xScale, 1, props.zScale]} />
+      {props => {
+        const extraProps = {};
+        if (shape !== 'cube') {
+          extraProps.rotation = [props.xRotation, 0, 0];
+        }
+        return (
+          <mesh ref={cube1Ref} position={[0,0,props.zPosition]} rotation={shape === 'cube' ? [0,0,0]: [props.xRotation, 0, 0]}>
+            <boxBufferGeometry attach="geometry" args={[props.xScale, 1, props.zScale]} />
+            {shape === 'cube' ? (
+              <meshPhongMaterial color={color} wireframe attach="material" />
+            ): (
+              <Image url="/1.png" />
+            )}
+            <boxBufferGeometry attach="geometry" args={[props.xScale, 1, props.zScale]} />
 
-        </mesh>
-      )}
+          </mesh>
+        )
+      }}
       </Spring>
   )
 }
