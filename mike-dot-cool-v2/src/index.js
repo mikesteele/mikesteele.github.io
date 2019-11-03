@@ -2,6 +2,33 @@ import React, { useRef, useEffect } from 'react'
 import ReactDOM from 'react-dom'
 import { Canvas, useFrame } from 'react-three-fiber'
 import './index.css';
+import Image from './Image';
+import useInterval from './useInterval';
+import {Spring} from 'react-spring/renderprops'
+
+
+/**
+const useSpring = (toValue, oldValue, frameCount) => {
+  const lastValue = useRef();
+  const springAmount = Math.abs((toValue - oldValue)) / frameCount;
+  useFrame(() => {
+    if (lastValue.current) {
+      if (lastValue.current === toValue) {
+        // No-op
+      } else if (Math.abs(lastValue.current - toValue) <= springAmount) {
+        lastValue.current = toValue
+      } else if (lastValue.current < toValue) {
+        lastValue.current = lastValue.current + springAmount
+      } else if (lastValue.current > toValue) {
+        lastValue.current = lastValue.current - springAmount
+      }
+    } else {
+      lastValue.current = oldValue;
+    }
+  });
+  return lastValue.current;
+}
+*/
 
 const useSpringYPosition = (ref, toValue, springAmount) => {
   useFrame(() => {
@@ -34,6 +61,23 @@ const useSpringXScale = (ref, toValue, springAmount) => {
     }
   })
 }
+
+const useSpringYScale = (ref, toValue, springAmount) => {
+  useFrame(() => {
+    if (ref.current) {
+      if (ref.current.scale.y === toValue) {
+        return
+      } else if (Math.abs(ref.current.scale.y - toValue) <= springAmount) {
+        ref.current.scale.y = toValue
+      } else if (ref.current.scale.y < toValue) {
+        ref.current.scale.y = ref.current.scale.y + springAmount
+      } else if (ref.current.scale.y > toValue) {
+        ref.current.scale.y = ref.current.scale.y - springAmount
+      }
+    }
+  })
+}
+
 
 const useSpringXRotation = (ref, toValue, springAmount) => {
   useFrame(() => {
@@ -69,98 +113,119 @@ const useSpringZRotation = (ref, toValue, springAmount) => {
 function Thing(props) {
   const { previousShape, shape } = props
   const cube1Ref = useRef()
-  const cube2Ref = useRef()
   const cube1YPosition = {
     none: 0,
-    cube: 0.25,
-    dc: 0.5
-  }
-
-  const cube2YPosition = {
-    none: 0,
-    cube: -0.25,
-    dc: -0.5
+    cube: 0,
+    dc: 0,
+    resume: 0
   }
 
   const cube1XScale = {
     none: 1,
     cube: 1,
-    dc: 2.5
+    dc: 0.01,
+    resume: 0
   }
 
-  const cube2XScale = {
+  const cube1YScale = {
     none: 1,
     cube: 1,
-    dc: 2
+    dc: 1,
+    resume: 1
   }
 
   const cube1XRotation = {
     none: 0,
     cube: 0,
-    dc: -0.4
+    dc: 0,
+    resume: 0
   }
 
-  const cube2XRotation = {
-    none: 0,
-    cube: 0,
-    dc: -0.4
-  }
 
   const springAmountForFrameCount = (oldValue, newValue, frameCount) => {
-    return Math.abs((newValue - oldValue) / frameCount)
+    return Math.abs((newValue - oldValue)) / frameCount
   }
-
-  // Cube 1 springs
-  useSpringYPosition(cube1Ref, cube1YPosition[shape], springAmountForFrameCount(cube1YPosition[previousShape], cube1YPosition[shape], 15))
-  useSpringXScale(cube1Ref, cube1XScale[shape], springAmountForFrameCount(cube1XScale[previousShape], cube1XScale[shape], 15))
-  useSpringXRotation(cube1Ref, cube1XRotation[shape], springAmountForFrameCount(cube1XRotation[previousShape], cube1XRotation[shape], 15))
-
-  // Cube 2 springs
-  useSpringYPosition(cube2Ref, cube2YPosition[shape], springAmountForFrameCount(cube2YPosition[previousShape], cube2YPosition[shape], 15))
-  useSpringXScale(cube2Ref, cube2XScale[shape], springAmountForFrameCount(cube2XScale[previousShape], cube2XScale[shape], 15))
-  useSpringXRotation(cube2Ref, cube2XRotation[shape], springAmountForFrameCount(cube2XRotation[previousShape], cube2XRotation[shape], 15))
-
   useFrame(() => {
-    cube1Ref.current.rotation.y = cube1Ref.current.rotation.y + 0.01
-    cube2Ref.current.rotation.y = cube2Ref.current.rotation.y + 0.01
+    if (shape === 'cube') {
+      cube1Ref.current.rotation.y = cube1Ref.current.rotation.y + 0.01
+      cube1Ref.current.rotation.x = cube1Ref.current.rotation.x + 0.01
+    } else {
+      cube1Ref.current.rotation.x = 0;
+      cube1Ref.current.rotation.y = 0;
+    }
   });
 
   const color =  'white';
-
   return (
-    <>
-      <mesh ref={cube1Ref}>
-        <boxBufferGeometry attach="geometry" args={[1, 0.5, 1]} />
-        <meshPhongMaterial color={color}  wireframe={shape !== 'dc'}  attach="material" />
-      </mesh>
-      <mesh ref={cube2Ref}>
-        <boxBufferGeometry attach="geometry" args={[1, 0.5, 1]} />
-        <meshPhongMaterial color={color} wireframe={shape !== 'dc'} attach="material" />
-      </mesh>
-    </>
+    <Spring
+      from={{
+        xScale: shape === 'cube' ? 1.8 : 1,
+        zScale: shape === 'cube' ? 0.1 : 1,
+        zPosition: shape === 'cube' ? 0.7 : 0,
+      }}
+      to={{
+        xScale: shape === 'cube' ? 1 : 1.8,
+        zScale: shape === 'cube' ? 1 : 0.1,
+        zPosition: shape === 'cube' ? 0 : 0.7,
+      }}
+    >
+      {props => (
+        <mesh ref={cube1Ref} position={[0,0,props.zPosition]}>
+          <boxBufferGeometry attach="geometry" args={[props.xScale, 1, props.zScale]} />
+          {shape === 'cube' ? (
+            <meshPhongMaterial color={color} wireframe attach="material" />
+          ): (
+            <Image url="/1.png" />
+          )}
+          <boxBufferGeometry attach="geometry" args={[props.xScale, 1, props.zScale]} />
+
+        </mesh>
+      )}
+      </Spring>
   )
 }
 
 const App = () => {
-  const [shape, setShape] = React.useState('cube')
-  const [previousShape, setPreviousShape] = React.useState('none')
-  const onMouseOver = e => {
-    setPreviousShape('cube')
-    setShape('dc')
+  const [shapes, setShapes] = React.useState({
+    shape: 'cube',
+    previousShape: 'none'
+  });
+  const onMouseOverDC = e => {
+    setShapes(shapes => ({
+      previousShape: shapes.shape,
+      shape: 'dc'
+    }));
   }
-  const onMouseOut = e => {
-    setPreviousShape('dc')
-    setShape('cube')
+  const onMouseOutDC = e => {
+    setShapes(shapes => ({
+      previousShape: shapes.shape,
+      shape: 'cube'
+    }));
+  }
+  const onMouseOverResume = e => {
+    setShapes(shapes => ({
+      previousShape: shapes.shape,
+      shape: 'resume'
+    }));
+  }
+  const onMouseOutResume = e => {
+    setShapes(shapes => ({
+      previousShape: shapes.shape,
+      shape: 'cube'
+    }));
   }
   return (
     <>
-      <div className='links' onMouseOver={onMouseOver} onMouseOut={onMouseOut}>
-        <a className={shape === 'dc' && 'dc'} href="https://github.com/mikesteele/dual-captions">dual-captions</a>
+  <a href="https://github.com/mikesteele/dual-captions">
+     <div className='links' onMouseOver={onMouseOverDC} onMouseOut={onMouseOutDC}>
+        dual-captions
       </div>
-      <Canvas camera={{ position: [0, 0, 3.5] }}>
+      </a>
+
+      <Canvas camera={{ position: [0, 0, 2] }}>
         <ambientLight intensity={0.5} />
         <spotLight intensity={0.6} position={[30, 30, 50]} angle={0.2} penumbra={1} castShadow />
-        <Thing shape={shape} previousShape={previousShape} />
+        <Thing shape={shapes.shape} previousShape={shapes.previousShape} />
       </Canvas>
     </>
   )

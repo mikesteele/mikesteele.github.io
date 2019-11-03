@@ -32,11 +32,20 @@ body,
 .links {
   position: absolute;
   z-index: 1200;
-  height: 500px;
-  width: 100%;
+  padding: 64px;
+  margin: 16px;
+  border: 1px solid white;
   display: flex;
   justify-content: flex-start;
   align-items: center;
+}
+
+.image {
+  position: fixed;
+  left: 50%;
+  margin-left: -250px;
+  top: 50%;
+  margin-top: -156.6px;
 }
 
 a {
