@@ -131,11 +131,11 @@ function Thing(props) {
     <>
       <mesh ref={cube1Ref}>
         <boxBufferGeometry attach="geometry" args={[1, 0.5, 1]} />
-        <meshBasicMaterial color={color}  wireframe={shape === 'dc'}  attach="material" />
+        <meshPhongMaterial color={color}  wireframe={shape !== 'dc'}  attach="material" />
       </mesh>
       <mesh ref={cube2Ref}>
         <boxBufferGeometry attach="geometry" args={[1, 0.5, 1]} />
-        <meshBasicMaterial color={color} wireframe={shape === 'dc'} attach="material" />
+        <meshPhongMaterial color={color} wireframe={shape !== 'dc'} attach="material" />
       </mesh>
     </>
   )
@@ -157,7 +157,9 @@ const App = () => {
       <div className='links' onMouseOver={onMouseOver} onMouseOut={onMouseOut}>
         <a className={shape === 'dc' && 'dc'} href="https://github.com/mikesteele/dual-captions">dual-captions</a>
       </div>
-      <Canvas>
+      <Canvas camera={{ position: [0, 0, 3.5] }}>
+        <ambientLight intensity={0.5} />
+        <spotLight intensity={0.6} position={[30, 30, 50]} angle={0.2} penumbra={1} castShadow />
         <Thing shape={shape} previousShape={previousShape} />
       </Canvas>
     </>
