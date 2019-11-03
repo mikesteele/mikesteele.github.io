@@ -123,17 +123,19 @@ function Thing(props) {
   useFrame(() => {
     cube1Ref.current.rotation.y = cube1Ref.current.rotation.y + 0.01
     cube2Ref.current.rotation.y = cube2Ref.current.rotation.y + 0.01
-  })
+  });
+
+  const color =  'white';
 
   return (
     <>
       <mesh ref={cube1Ref}>
         <boxBufferGeometry attach="geometry" args={[1, 0.5, 1]} />
-        <meshNormalMaterial attach="material" />
+        <meshBasicMaterial color={color}  wireframe={shape === 'dc'}  attach="material" />
       </mesh>
       <mesh ref={cube2Ref}>
         <boxBufferGeometry attach="geometry" args={[1, 0.5, 1]} />
-        <meshNormalMaterial attach="material" />
+        <meshBasicMaterial color={color} wireframe={shape === 'dc'} attach="material" />
       </mesh>
     </>
   )
@@ -152,11 +154,9 @@ const App = () => {
   }
   return (
     <>
-      <p>{shape}</p>
-      <p>{previousShape}</p>
-      <h1 onMouseOver={onMouseOver} onMouseOut={onMouseOut}>
-        hi
-      </h1>
+      <div className='links' onMouseOver={onMouseOver} onMouseOut={onMouseOut}>
+        <a className={shape === 'dc' && 'dc'} href="https://github.com/mikesteele/dual-captions">dual-captions</a>
+      </div>
       <Canvas>
         <Thing shape={shape} previousShape={previousShape} />
       </Canvas>
