@@ -4,6 +4,7 @@ import { Canvas, useFrame } from 'react-three-fiber'
 import './index.css';
 import Image from './Image';
 import { Spring, config } from 'react-spring/renderprops'
+import useInterval from './useInterval';
 
 import Cube from './Cube';
 
@@ -145,6 +146,12 @@ const App = () => {
     shape: 'cube',
     previousShape: 'none'
   });
+  useInterval(() => {
+    setShapes(previousShapes => ({
+      shape: previousShapes.shape === 'cube' ? 'projects' : 'cube',
+      previousShape: previousShapes.shape,
+    }));
+  }, 3000)
   const onMouseOver = () => {
     setShapes({
       shape: 'projects',
