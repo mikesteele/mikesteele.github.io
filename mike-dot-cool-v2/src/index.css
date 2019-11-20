@@ -57,3 +57,11 @@ a {
   color: white;
   font-size: 24px;
 }
+
+.heading {
+  position: fixed;
+  z-index: 10;
+  font-size: 32px;
+  display: block;
+  color: white;
+}
