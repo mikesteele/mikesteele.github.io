@@ -213,17 +213,11 @@ const App = () => {
       previousShape: 'cube'
     });
   }
-  /**
-  const onMouseOut = () => {
-    setShapes({
-      shape: 'cube',
-      previousShape: 'projects'
-    });
-  }
-  **/
   return (
     <>
-      <div className='heading' onMouseOver={onMouseOver}>Projects</div>
+      {shapes.shape !== 'projects' && (
+        <div className='heading' onClick={onMouseOver}>Enter</div>
+      )}
       <Canvas camera={{ position: [0, 0, 2] }}>
         <ambientLight intensity={0.5} />
         <spotLight intensity={0.6} position={[30, 30, 50]} angle={0.2} penumbra={1} castShadow />
