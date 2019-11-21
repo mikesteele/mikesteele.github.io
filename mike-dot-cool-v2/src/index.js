@@ -107,6 +107,7 @@ const MorphCube = props => {
   }
 
   return (
+    <>
     <Spring
       from={{
         ...shapes[previousShape],
@@ -177,22 +178,59 @@ const MorphCube = props => {
               zScale={0.5}
               isRotating={cube3IsRotating}
             />
-            <Cube
-              xRotation={0}
-              yRotation={0}
-              zRotation={0}
-              xPosition={cube4XPosition}
-              yPosition={cube4YPosition}
-              zPosition={0}
-              xScale={cube4XScale}
-              yScale={0.5}
-              zScale={0.5}
-              isRotating={cube4IsRotating}
-            />
           </>
         );
       }}
       </Spring>
+      <Spring
+        from={{
+          ...shapes[previousShape],
+          cube4XScale: scales.previousScales.cube4XScale
+        }}
+        to={{
+          ...shapes[shape],
+          cube4XScale: scales.scales.cube4XScale
+        }}
+        config={springConfig}
+      >
+        {props => {
+          const {
+            cube1XScale,
+            cube1XPosition,
+            cube1YPosition,
+            cube1IsRotating,
+            cube2XScale,
+            cube2XPosition,
+            cube2YPosition,
+            cube2IsRotating,
+            cube3XScale,
+            cube3XPosition,
+            cube3YPosition,
+            cube3IsRotating,
+            cube4XScale,
+            cube4XPosition,
+            cube4YPosition,
+            cube4IsRotating,
+          } = props;
+          return (
+            <>
+              <Cube
+                xRotation={0}
+                yRotation={0}
+                zRotation={0}
+                xPosition={cube4XPosition}
+                yPosition={cube4YPosition}
+                zPosition={0}
+                xScale={cube4XScale}
+                yScale={0.5}
+                zScale={0.5}
+                isRotating={cube4IsRotating}
+              />
+            </>
+          );
+        }}
+        </Spring>
+      </>
   )
 }
 
