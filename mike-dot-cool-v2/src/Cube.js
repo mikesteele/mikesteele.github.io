@@ -6,6 +6,8 @@ const setCanvasCursor = cursor => {
   document.querySelector('canvas').style.cursor = cursor;
 }
 
+const wobblyConfig = { tension: 200, friction: 10 };
+
 const Cube = props => {
   const {
     isInteractive,
@@ -26,8 +28,8 @@ const Cube = props => {
       color: 'white'
     },
     previousStyles: {
-      scale: '0',
-      color: 'black'
+      scale: '1',
+      color: 'white'
     }
   });
   const cubeRef = useRef();
@@ -74,6 +76,7 @@ const Cube = props => {
       to={{
         ...styles.styles
       }}
+      config={wobblyConfig}
     >
     {spring => {
       const {
