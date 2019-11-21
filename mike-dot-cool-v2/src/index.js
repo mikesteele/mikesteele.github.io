@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import ReactDOM from 'react-dom'
 import { Canvas, useFrame } from 'react-three-fiber'
 import './index.css';
@@ -9,8 +9,21 @@ import useInterval from './useInterval';
 import Cube from './Cube';
 
 const MorphCube = props => {
-  const { previousShape, shape } = props
-
+  const [scales, setScales] = React.useState({
+    scales: {
+      cube1XScale: 0.5,
+      cube2XScale: 0.5,
+      cube3XScale: 0.5,
+      cube4XScale: 0.5,
+    },
+    previousScales: {
+      cube1XScale: 0.5,
+      cube2XScale: 0.5,
+      cube3XScale: 0.5,
+      cube4XScale: 0.5,
+    }
+  });
+  const { previousShape, shape } = props;
   const shapes = {
     cube: {
       cube1XPosition: 0.25,
@@ -59,27 +72,67 @@ const MorphCube = props => {
   const wobblyConfig = { tension: 200, friction: 10 };
   const springConfig = wobblyConfig;
 
+  const onMouseOverCube1 = () => {
+    setScales({
+      scales: {
+        cube1XScale: 1,
+        cube2XScale: 0.5,
+        cube3XScale: 0.5,
+        cube4XScale: 0.5,
+      },
+      previousScales: {
+        cube1XScale: 0.5,
+        cube2XScale: 0.5,
+        cube3XScale: 0.5,
+        cube4XScale: 0.5,
+      }
+    });
+  }
+
+  const onMouseOutCube1 = () => {
+    setScales({
+      scales: {
+        cube1XScale: 0.5,
+        cube2XScale: 0.5,
+        cube3XScale: 0.5,
+        cube4XScale: 0.5,
+      },
+      previousScales: {
+        cube1XScale: 1,
+        cube2XScale: 0.5,
+        cube3XScale: 0.5,
+        cube4XScale: 0.5,
+      }
+    });
+  }
+
   return (
     <Spring
       from={{
-        ...shapes[previousShape]
+        ...shapes[previousShape],
+        ...scales.previousScales
       }}
       to={{
-        ...shapes[shape]
+        ...shapes[shape],
+        ...scales.scales
       }}
       config={springConfig}
     >
       {props => {
         const {
+          cube1XScale,
           cube1XPosition,
           cube1YPosition,
           cube1IsRotating,
+          cube2XScale,
           cube2XPosition,
           cube2YPosition,
           cube2IsRotating,
+          cube3XScale,
           cube3XPosition,
           cube3YPosition,
           cube3IsRotating,
+          cube4XScale,
           cube4XPosition,
           cube4YPosition,
           cube4IsRotating,
@@ -93,10 +146,12 @@ const MorphCube = props => {
               xPosition={cube1XPosition}
               yPosition={cube1YPosition}
               zPosition={0}
-              xScale={0.5}
+              xScale={cube1XScale}
               yScale={0.5}
               zScale={0.5}
               isRotating={cube1IsRotating}
+              onPointerOver={onMouseOverCube1}
+              onPointerOut={onMouseOutCube1}
             />
             <Cube
               xRotation={0}
@@ -105,7 +160,7 @@ const MorphCube = props => {
               xPosition={cube2XPosition}
               yPosition={cube2YPosition}
               zPosition={0}
-              xScale={0.5}
+              xScale={cube2XScale}
               yScale={0.5}
               zScale={0.5}
               isRotating={cube2IsRotating}
@@ -117,7 +172,7 @@ const MorphCube = props => {
               xPosition={cube3XPosition}
               yPosition={cube3YPosition}
               zPosition={0}
-              xScale={0.5}
+              xScale={cube3XScale}
               yScale={0.5}
               zScale={0.5}
               isRotating={cube3IsRotating}
@@ -129,7 +184,7 @@ const MorphCube = props => {
               xPosition={cube4XPosition}
               yPosition={cube4YPosition}
               zPosition={0}
-              xScale={0.5}
+              xScale={cube4XScale}
               yScale={0.5}
               zScale={0.5}
               isRotating={cube4IsRotating}
@@ -146,27 +201,23 @@ const App = () => {
     shape: 'cube',
     previousShape: 'none'
   });
-  useInterval(() => {
-    setShapes(previousShapes => ({
-      shape: previousShapes.shape === 'cube' ? 'projects' : 'cube',
-      previousShape: previousShapes.shape,
-    }));
-  }, 3000)
   const onMouseOver = () => {
     setShapes({
       shape: 'projects',
       previousShape: 'cube'
     });
   }
+  /**
   const onMouseOut = () => {
     setShapes({
       shape: 'cube',
       previousShape: 'projects'
     });
   }
+  **/
   return (
     <>
-      <div className='heading' onMouseOver={onMouseOver} onMouseOut={onMouseOut}>Projects</div>
+      <div className='heading' onMouseOver={onMouseOver}>Projects</div>
       <Canvas camera={{ position: [0, 0, 2] }}>
         <ambientLight intensity={0.5} />
         <spotLight intensity={0.6} position={[30, 30, 50]} angle={0.2} penumbra={1} castShadow />

@@ -3,6 +3,8 @@ import { useFrame } from 'react-three-fiber';
 
 const Cube = props => {
   const {
+    onPointerOver,
+    onPointerOut,
     isRotating,
     xRotation,
     yRotation,
@@ -23,7 +25,13 @@ const Cube = props => {
   });
 
   return (
-    <mesh ref={cubeRef} position={[xPosition, yPosition, zPosition]} rotation={[xRotation, yRotation, zRotation]}>
+    <mesh
+      ref={cubeRef}
+      position={[xPosition, yPosition, zPosition]}
+      rotation={[xRotation, yRotation, zRotation]}
+      onPointerOver={onPointerOver}
+      onPointerOut={onPointerOut}
+    >
       <boxBufferGeometry attach="geometry" args={[xScale, yScale, zScale]} />
       <meshNormalMaterial color="white" wireframe attach="material" />
     </mesh>
