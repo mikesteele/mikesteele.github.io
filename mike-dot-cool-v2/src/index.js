@@ -106,6 +106,8 @@ const MorphCube = props => {
     });
   }
 
+  const cubesAreInteractive = shape === 'projects';
+
   return (
     <Spring
       from={{
@@ -152,6 +154,7 @@ const MorphCube = props => {
               isRotating={cube1IsRotating}
               onPointerOver={onMouseOverCube1}
               onPointerOut={onMouseOutCube1}
+              isInteractive={cubesAreInteractive}
             />
             <Cube
               xRotation={0}
@@ -164,6 +167,7 @@ const MorphCube = props => {
               yScale={0.5}
               zScale={0.5}
               isRotating={cube2IsRotating}
+              isInteractive={cubesAreInteractive}
             />
             <Cube
               xRotation={0}
@@ -176,6 +180,7 @@ const MorphCube = props => {
               yScale={0.5}
               zScale={0.5}
               isRotating={cube3IsRotating}
+              isInteractive={cubesAreInteractive}
             />
             <Cube
               xRotation={0}
@@ -188,6 +193,7 @@ const MorphCube = props => {
               yScale={0.5}
               zScale={0.5}
               isRotating={cube4IsRotating}
+              isInteractive={cubesAreInteractive}
             />
           </>
         );
