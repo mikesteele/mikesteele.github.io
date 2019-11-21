@@ -28,12 +28,11 @@ const Cube = props => {
     <mesh
       ref={cubeRef}
       position={[xPosition, yPosition, zPosition]}
-      rotation={[xRotation, yRotation, zRotation]}
       onPointerOver={onPointerOver}
       onPointerOut={onPointerOut}
     >
       <boxBufferGeometry attach="geometry" args={[xScale, yScale, zScale]} />
-      <meshNormalMaterial color="white" wireframe attach="material" />
+      <meshPhongMaterial color="white" attach="material" />
     </mesh>
   );
 };
