@@ -23,7 +23,7 @@ const MorphCube = props => {
       cube4XScale: 0.5,
     }
   });
-  const { previousShape, shape } = props;
+  const { previousShape, shape, onChangeHelperTextState } = props;
   const shapes = {
     cube: {
       cube1XPosition: 0.25,
@@ -155,6 +155,7 @@ const MorphCube = props => {
               onPointerOver={onMouseOverCube1}
               onPointerOut={onMouseOutCube1}
               isInteractive={cubesAreInteractive}
+              onChangeHelperTextState={onChangeHelperTextState}
             />
             <Cube
               xRotation={0}
@@ -168,6 +169,7 @@ const MorphCube = props => {
               zScale={0.5}
               isRotating={cube2IsRotating}
               isInteractive={cubesAreInteractive}
+              onChangeHelperTextState={onChangeHelperTextState}
             />
             <Cube
               xRotation={0}
@@ -181,6 +183,7 @@ const MorphCube = props => {
               zScale={0.5}
               isRotating={cube3IsRotating}
               isInteractive={cubesAreInteractive}
+              onChangeHelperTextState={onChangeHelperTextState}
             />
             <Cube
               xRotation={0}
@@ -194,6 +197,7 @@ const MorphCube = props => {
               zScale={0.5}
               isRotating={cube4IsRotating}
               isInteractive={cubesAreInteractive}
+              onChangeHelperTextState={onChangeHelperTextState}
             />
           </>
         );
@@ -207,21 +211,42 @@ const App = () => {
     shape: 'cube',
     previousShape: 'none'
   });
+  const [helperTextState, setHelperTextState] = React.useState({
+    top: 0,
+    left: 0,
+    isVisible: false,
+    text: ''
+  });
   const onMouseOver = () => {
     setShapes({
       shape: 'projects',
       previousShape: 'cube'
     });
   }
+  const onChangeHelperTextState = state => {
+    setHelperTextState(state);
+  }
   return (
     <>
       {shapes.shape !== 'projects' && (
         <div className='heading' onClick={onMouseOver}>Enter</div>
       )}
+      {helperTextState.isVisible && (
+        <div style={{
+          position: 'fixed',
+          background: 'white',
+          top: helperTextState.top,
+          left: helperTextState.left,
+          padding: 32,
+          zIndex: 10,
+          pointerEvents: 'none',
+          margin: 16
+        }}>{helperTextState.text}</div>
+      )}
       <Canvas camera={{ position: [0, 0, 2] }}>
         <ambientLight intensity={0.5} />
         <spotLight intensity={0.6} position={[30, 30, 50]} angle={0.2} penumbra={1} castShadow />
-        <MorphCube shape={shapes.shape} previousShape={shapes.previousShape} />
+        <MorphCube onChangeHelperTextState={onChangeHelperTextState} shape={shapes.shape} previousShape={shapes.previousShape} />
       </Canvas>
     </>
   )

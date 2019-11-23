@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { useFrame } from 'react-three-fiber';
 import { Spring, config } from 'react-spring/renderprops';
+import ReactDOM from 'react-dom';
 
 const setCanvasCursor = cursor => {
   document.querySelector('canvas').style.cursor = cursor;
@@ -21,15 +22,18 @@ const Cube = props => {
     xScale,
     yScale,
     zScale,
+    onChangeHelperTextState
   } = props;
   const [styles, setStyles] = React.useState({
     styles: {
       scale: '1',
-      color: 'white'
+      color: 'white',
+      isWireframe: false
     },
     previousStyles: {
       scale: '1',
-      color: 'white'
+      color: 'white',
+      isWireframe: true
     }
   });
   const cubeRef = useRef();
@@ -41,15 +45,16 @@ const Cube = props => {
   });
 
   const onPointerOver = () => {
-    setCanvasCursor('pointer');
     setStyles({
       styles: {
         scale: '1.5',
-        color: 'red'
+        color: 'red',
+        isWireframe: true
       },
       previousStyles: {
         scale: '1',
-        color: 'white'
+        color: 'white',
+        isWireframe: false
       }
     });
   }
@@ -59,49 +64,73 @@ const Cube = props => {
     setStyles({
       styles: {
         scale: '1',
-        color: 'white'
+        color: 'white',
+        isWireframe: false
       },
       previousStyles: {
         scale: '1.5',
-        color: 'red'
+        color: 'red',
+        isWireframe: true
       }
     });
+    onChangeHelperTextState({
+      top: 0,
+      left: 0,
+      text: 'Cube!',
+      isVisible: false
+    })
   }
 
   return (
-    <Spring
-      from={{
-        ...styles.previousStyles
+
+      <Spring
+        from={{
+          ...styles.previousStyles
+        }}
+        to={{
+          ...styles.styles
+        }}
+        config={wobblyConfig}
+      >
+      {spring => {
+        const {
+          scale,
+          color
+        } = spring;
+        const scaleNum = Number(scale);
+        const geometry = [
+          xScale * scaleNum,
+          yScale * scaleNum,
+          zScale * scaleNum
+        ];
+        return (
+          <mesh
+            ref={cubeRef}
+            position={[xPosition, yPosition, zPosition]}
+            onPointerOver={isInteractive ? onPointerOver : undefined}
+            onPointerMove={e => {
+              setCanvasCursor('pointer');
+              onChangeHelperTextState({
+                top: e.clientY,
+                left: e.clientX,
+                text: 'Cube!',
+                isVisible: true
+              })
+            }}
+            onPointerOut={isInteractive ? onPointerOut : undefined}
+          >
+            <boxBufferGeometry attach="geometry" args={geometry} />
+            {styles.isWireframe ? (
+              <meshBasicMaterial wireframe attach="material" />
+            ) : (
+              <meshLambertMaterial color={color} attach="material" />
+            )}
+          </mesh>
+
+        )
       }}
-      to={{
-        ...styles.styles
-      }}
-      config={wobblyConfig}
-    >
-    {spring => {
-      const {
-        scale,
-        color
-      } = spring;
-      const scaleNum = Number(scale);
-      const geometry = [
-        xScale * scaleNum,
-        yScale * scaleNum,
-        zScale * scaleNum
-      ];
-      return (
-        <mesh
-          ref={cubeRef}
-          position={[xPosition, yPosition, zPosition]}
-          onPointerOver={isInteractive ? onPointerOver : undefined}
-          onPointerOut={isInteractive ? onPointerOut : undefined}
-        >
-          <boxBufferGeometry attach="geometry" args={geometry} />
-          <meshPhongMaterial color={color} attach="material" />
-        </mesh>
-      )
-    }}
-    </Spring>
+      </Spring>
+
   );
 };
 
