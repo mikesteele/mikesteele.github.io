@@ -22,7 +22,8 @@ const Cube = props => {
     xScale,
     yScale,
     zScale,
-    onChangeHelperTextState
+    onChangeHelperTextState,
+    helperTextLabel
   } = props;
   const [styles, setStyles] = React.useState({
     styles: {
@@ -76,7 +77,7 @@ const Cube = props => {
     onChangeHelperTextState({
       top: 0,
       left: 0,
-      text: 'Cube!',
+      text: '',
       isVisible: false
     })
   }
@@ -113,7 +114,7 @@ const Cube = props => {
               onChangeHelperTextState({
                 top: e.clientY,
                 left: e.clientX,
-                text: 'Cube!',
+                text: helperTextLabel,
                 isVisible: true
               })
             }}

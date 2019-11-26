@@ -156,6 +156,7 @@ const MorphCube = props => {
               onPointerOut={onMouseOutCube1}
               isInteractive={cubesAreInteractive}
               onChangeHelperTextState={onChangeHelperTextState}
+              helperTextLabel='Projects'
             />
             <Cube
               xRotation={0}
@@ -170,6 +171,7 @@ const MorphCube = props => {
               isRotating={cube2IsRotating}
               isInteractive={cubesAreInteractive}
               onChangeHelperTextState={onChangeHelperTextState}
+              helperTextLabel='Art'
             />
             <Cube
               xRotation={0}
@@ -184,6 +186,7 @@ const MorphCube = props => {
               isRotating={cube3IsRotating}
               isInteractive={cubesAreInteractive}
               onChangeHelperTextState={onChangeHelperTextState}
+              helperTextLabel='Writing'
             />
             <Cube
               xRotation={0}
@@ -198,6 +201,7 @@ const MorphCube = props => {
               isRotating={cube4IsRotating}
               isInteractive={cubesAreInteractive}
               onChangeHelperTextState={onChangeHelperTextState}
+              helperTextLabel='Etc'
             />
           </>
         );
