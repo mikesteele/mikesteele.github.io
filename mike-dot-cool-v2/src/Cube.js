@@ -23,7 +23,8 @@ const Cube = props => {
     yScale,
     zScale,
     onChangeHelperTextState,
-    helperTextLabel
+    helperTextLabel,
+    hoverColor
   } = props;
   const [styles, setStyles] = React.useState({
     styles: {
@@ -49,7 +50,7 @@ const Cube = props => {
     setStyles({
       styles: {
         scale: '1.5',
-        color: 'red',
+        color: hoverColor,
         isWireframe: true
       },
       previousStyles: {
@@ -70,7 +71,7 @@ const Cube = props => {
       },
       previousStyles: {
         scale: '1.5',
-        color: 'red',
+        color: hoverColor,
         isWireframe: true
       }
     });

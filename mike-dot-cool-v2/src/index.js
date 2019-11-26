@@ -157,6 +157,7 @@ const MorphCube = props => {
               isInteractive={cubesAreInteractive}
               onChangeHelperTextState={onChangeHelperTextState}
               helperTextLabel='Projects'
+              hoverColor='salmon'
             />
             <Cube
               xRotation={0}
@@ -172,6 +173,7 @@ const MorphCube = props => {
               isInteractive={cubesAreInteractive}
               onChangeHelperTextState={onChangeHelperTextState}
               helperTextLabel='Art'
+              hoverColor='teal'
             />
             <Cube
               xRotation={0}
@@ -187,6 +189,7 @@ const MorphCube = props => {
               isInteractive={cubesAreInteractive}
               onChangeHelperTextState={onChangeHelperTextState}
               helperTextLabel='Writing'
+              hoverColor='gold'
             />
             <Cube
               xRotation={0}
@@ -202,6 +205,7 @@ const MorphCube = props => {
               isInteractive={cubesAreInteractive}
               onChangeHelperTextState={onChangeHelperTextState}
               helperTextLabel='Etc'
+              hoverColor='seagreen'
             />
           </>
         );
