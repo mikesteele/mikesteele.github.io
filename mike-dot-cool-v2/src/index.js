@@ -154,10 +154,12 @@ const MorphCube = props => {
               isRotating={cube1IsRotating}
               onPointerOver={onMouseOverCube1}
               onPointerOut={onMouseOutCube1}
-              isInteractive={cubesAreInteractive}
+              isInteractive={false}
               onChangeHelperTextState={onChangeHelperTextState}
-              helperTextLabel='Projects'
-              hoverColor='salmon'
+              helperTextLabel=''
+              href=''
+              hoverColor=''
+              showWireframe={cubesAreInteractive}
             />
             <Cube
               xRotation={0}
@@ -170,10 +172,12 @@ const MorphCube = props => {
               yScale={0.5}
               zScale={0.5}
               isRotating={cube2IsRotating}
-              isInteractive={cubesAreInteractive}
+              isInteractive={false}
               onChangeHelperTextState={onChangeHelperTextState}
-              helperTextLabel='Art'
-              hoverColor='teal'
+              helperTextLabel=''
+              href=''
+              hoverColor=''
+              showWireframe={cubesAreInteractive}
             />
             <Cube
               xRotation={0}
@@ -186,10 +190,11 @@ const MorphCube = props => {
               yScale={0.5}
               zScale={0.5}
               isRotating={cube3IsRotating}
-              isInteractive={cubesAreInteractive}
               onChangeHelperTextState={onChangeHelperTextState}
-              helperTextLabel='Writing'
-              hoverColor='gold'
+              isInteractive={cubesAreInteractive}
+              helperTextLabel='GitHub'
+              href='https://github.com/mikesteele'
+              hoverColor='salmon'
             />
             <Cube
               xRotation={0}
@@ -202,10 +207,11 @@ const MorphCube = props => {
               yScale={0.5}
               zScale={0.5}
               isRotating={cube4IsRotating}
-              isInteractive={cubesAreInteractive}
               onChangeHelperTextState={onChangeHelperTextState}
-              helperTextLabel='Etc'
-              hoverColor='seagreen'
+              isInteractive={cubesAreInteractive}
+              helperTextLabel='LinkedIn'
+              href='https://www.linkedin.com/in/mikesteeledev/'
+              hoverColor='gold'
             />
           </>
         );

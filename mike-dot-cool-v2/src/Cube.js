@@ -24,7 +24,9 @@ const Cube = props => {
     zScale,
     onChangeHelperTextState,
     helperTextLabel,
-    hoverColor
+    hoverColor,
+    href,
+    showWireframe
   } = props;
   const [styles, setStyles] = React.useState({
     styles: {
@@ -83,6 +85,20 @@ const Cube = props => {
     })
   }
 
+  const onPointerMove = e => {
+    setCanvasCursor('pointer');
+    onChangeHelperTextState({
+      top: e.clientY,
+      left: e.clientX,
+      text: helperTextLabel,
+      isVisible: true
+    })
+  }
+
+  const onClick = () => {
+    window.open(href)
+  }
+
   return (
 
       <Spring
@@ -110,22 +126,15 @@ const Cube = props => {
             ref={cubeRef}
             position={[xPosition, yPosition, zPosition]}
             onPointerOver={isInteractive ? onPointerOver : undefined}
-            onPointerMove={e => {
-              setCanvasCursor('pointer');
-              onChangeHelperTextState({
-                top: e.clientY,
-                left: e.clientX,
-                text: helperTextLabel,
-                isVisible: true
-              })
-            }}
+            onPointerMove={isInteractive ? onPointerMove : undefined}
             onPointerOut={isInteractive ? onPointerOut : undefined}
+            onClick={isInteractive ? onClick : undefined}
           >
             <boxBufferGeometry attach="geometry" args={geometry} />
-            {styles.isWireframe ? (
-              <meshBasicMaterial wireframe attach="material" />
+            {showWireframe ? (
+              <meshNormalMaterial wireframe color={color} attach="material" />
             ) : (
-              <meshLambertMaterial color={color} attach="material" />
+              <meshNormalMaterial color={color} attach="material" />
             )}
           </mesh>
 
