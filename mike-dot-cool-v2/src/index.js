@@ -195,6 +195,8 @@ const MorphCube = props => {
               helperTextLabel='GitHub'
               href='https://github.com/mikesteele'
               hoverColor='salmon'
+              hoverImage='code-lyoko.jpg'
+              hoverCanvasBg='binary-bg.gif'
             />
             <Cube
               xRotation={0}
@@ -212,6 +214,8 @@ const MorphCube = props => {
               helperTextLabel='LinkedIn'
               href='https://www.linkedin.com/in/mikesteeledev/'
               hoverColor='gold'
+              hoverImage='briefcase.jpg'
+              hoverCanvasBg='linkedin.gif'
             />
           </>
         );

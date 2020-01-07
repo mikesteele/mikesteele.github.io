@@ -2,9 +2,21 @@ import React, { useRef } from 'react';
 import { useFrame } from 'react-three-fiber';
 import { Spring, config } from 'react-spring/renderprops';
 import ReactDOM from 'react-dom';
+import Image from './Image';
 
 const setCanvasCursor = cursor => {
   document.querySelector('canvas').style.cursor = cursor;
+}
+
+const setCanvasBg = bgImageSrc => {
+  const canvas = document.querySelector('canvas');
+  canvas.style.backgroundImage = `url(${bgImageSrc})`;
+  canvas.style.backgroundSize = 'cover';
+}
+
+const resetCanvasBg = () => {
+  const canvas = document.querySelector('canvas');
+  canvas.style.backgroundImage = '';
 }
 
 const wobblyConfig = { tension: 200, friction: 10 };
@@ -26,8 +38,11 @@ const Cube = props => {
     helperTextLabel,
     hoverColor,
     href,
-    showWireframe
+    showWireframe,
+    hoverImage,
+    hoverCanvasBg,
   } = props;
+  const [imageMaterialSrc, setImageMaterialSrc] = React.useState('');
   const [styles, setStyles] = React.useState({
     styles: {
       scale: '1',
@@ -61,6 +76,8 @@ const Cube = props => {
         isWireframe: false
       }
     });
+    setImageMaterialSrc(hoverImage);
+    setCanvasBg(hoverCanvasBg);
   }
 
   const onPointerOut = () => {
@@ -77,12 +94,14 @@ const Cube = props => {
         isWireframe: true
       }
     });
+    setImageMaterialSrc('');
     onChangeHelperTextState({
       top: 0,
       left: 0,
       text: '',
       isVisible: false
-    })
+    });
+    resetCanvasBg();
   }
 
   const onPointerMove = e => {
@@ -121,6 +140,18 @@ const Cube = props => {
           yScale * scaleNum,
           zScale * scaleNum
         ];
+        let material = (
+          <meshNormalMaterial color={color} attach="material" />
+        );
+        if (imageMaterialSrc) {
+          material = (
+            <Image url={imageMaterialSrc} />
+          )
+        } else if (showWireframe) {
+          material = (
+            <meshNormalMaterial wireframe color={color} attach="material" />
+          );
+        }
         return (
           <mesh
             ref={cubeRef}
@@ -131,11 +162,7 @@ const Cube = props => {
             onClick={isInteractive ? onClick : undefined}
           >
             <boxBufferGeometry attach="geometry" args={geometry} />
-            {showWireframe ? (
-              <meshNormalMaterial wireframe color={color} attach="material" />
-            ) : (
-              <meshNormalMaterial color={color} attach="material" />
-            )}
+            { material }
           </mesh>
 
         )
