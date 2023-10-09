@@ -8,17 +8,6 @@ const setCanvasCursor = cursor => {
   document.querySelector('canvas').style.cursor = cursor;
 }
 
-const setCanvasBg = bgImageSrc => {
-  const canvas = document.querySelector('canvas');
-  canvas.style.backgroundImage = `url(${bgImageSrc})`;
-  canvas.style.backgroundSize = 'cover';
-}
-
-const resetCanvasBg = () => {
-  const canvas = document.querySelector('canvas');
-  canvas.style.backgroundImage = '';
-}
-
 const wobblyConfig = { tension: 200, friction: 10 };
 
 const Cube = props => {
@@ -40,9 +29,21 @@ const Cube = props => {
     href,
     showWireframe,
     hoverImage,
-    hoverCanvasBg,
   } = props;
   const [imageMaterialSrc, setImageMaterialSrc] = React.useState('');
+
+  React.useEffect(() => {
+    if (isInteractive) {
+      setImageMaterialSrc(hoverImage);
+      onChangeHelperTextState({
+        top: 0,
+        left: 0,
+        text: '',
+        isVisible: false
+      });
+    }
+  }, [isInteractive]);
+
   const [styles, setStyles] = React.useState({
     styles: {
       scale: '1',
@@ -77,7 +78,6 @@ const Cube = props => {
       }
     });
     setImageMaterialSrc(hoverImage);
-    setCanvasBg(hoverCanvasBg);
   }
 
   const onPointerOut = () => {
@@ -94,14 +94,12 @@ const Cube = props => {
         isWireframe: true
       }
     });
-    setImageMaterialSrc('');
     onChangeHelperTextState({
       top: 0,
       left: 0,
       text: '',
       isVisible: false
     });
-    resetCanvasBg();
   }
 
   const onPointerMove = e => {

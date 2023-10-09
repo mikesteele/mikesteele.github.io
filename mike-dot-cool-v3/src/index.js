@@ -1,11 +1,11 @@
-import React, { useRef, useState } from 'react'
-import ReactDOM from 'react-dom'
+import React, { useRef, useState }  from 'react';
+import ReactDOM from 'react-dom/client';
 import { Canvas, useFrame } from 'react-three-fiber'
 import './index.css';
+import reportWebVitals from './reportWebVitals';
 import Image from './Image';
 import { Spring, config } from 'react-spring/renderprops'
 import useInterval from './useInterval';
-
 import Cube from './Cube';
 
 const MorphCube = props => {
@@ -172,12 +172,12 @@ const MorphCube = props => {
               yScale={0.5}
               zScale={0.5}
               isRotating={cube2IsRotating}
-              isInteractive={false}
+              isInteractive={cubesAreInteractive}
               onChangeHelperTextState={onChangeHelperTextState}
-              helperTextLabel=''
-              href=''
-              hoverColor=''
-              showWireframe={cubesAreInteractive}
+              helperTextLabel='Website code'
+              href='https://github.com/mikesteele/mikesteele.github.io/tree/develop'
+              hoverColor='salmon'
+              hoverImage='binary-bg.gif'
             />
             <Cube
               xRotation={0}
@@ -196,7 +196,6 @@ const MorphCube = props => {
               href='https://github.com/mikesteele'
               hoverColor='salmon'
               hoverImage='code-lyoko.jpg'
-              hoverCanvasBg='binary-bg.gif'
             />
             <Cube
               xRotation={0}
@@ -215,7 +214,6 @@ const MorphCube = props => {
               href='https://www.linkedin.com/in/mikesteeledev/'
               hoverColor='gold'
               hoverImage='briefcase.jpg'
-              hoverCanvasBg='linkedin.gif'
             />
           </>
         );
@@ -233,8 +231,14 @@ const App = () => {
     top: 0,
     left: 0,
     isVisible: false,
-    text: ''
+    text: 'Hover over cube'
   });
+  const [cubeBackgrounds, setCubeBackgrounds] = React.useState([
+    '',
+    '',
+    '',
+    '',
+  ]);
   const onMouseOver = () => {
     setShapes({
       shape: 'projects',
@@ -270,4 +274,12 @@ const App = () => {
   )
 }
 
-ReactDOM.render(<App />, document.getElementById('root'))
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+    <App />
+);
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
