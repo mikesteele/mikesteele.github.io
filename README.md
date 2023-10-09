@@ -1,5 +1,7 @@
 ## mike.cool
 
+Source code is in the `mike-dot-cool-v3` directory.
+
 Install dependencies
 
 ```
